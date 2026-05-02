@@ -1561,8 +1561,8 @@ body::before { display: none; }
     <select class="hud-select" id="agent-select">
       <option value="">▸ NO AGENT</option>
     </select>
-    <button class="hud-btn" id="clear-chat">⌫ CLEAR</button>
-    <button class="hud-btn" id="new-chat">+ NEW</button>
+    <button class="hud-btn" id="clear-chat">⌫ Effacer</button>
+    <button class="hud-btn" id="new-chat">+ Nouveau</button>
     <button class="hud-btn" id="open-archives-desktop">⬡ ARCHIVES</button>
     <div class="context-meter" id="context-meter" title="Contexte utilisé"><div class="context-bar-track"><div class="context-bar-fill" id="context-bar" style="width:0%"></div></div><span id="context-label">0%</span></div>
   </div>
@@ -1570,13 +1570,13 @@ body::before { display: none; }
   <div class="header-right">
     <span class="status-pill" id="api-status"><span class="status-dot"></span>OFFLINE</span>
     <select class="hud-select" id="theme-select">
-      <option value="cyber">◈ CYBER</option>
+      <option value="cyber">◈ Sombre</option>
       <option value="midnight">◈ MIDNIGHT</option>
       <option value="light">◈ LIGHT</option>
     </select>
     <button class="hud-btn primary" id="open-api-modal">⬡ API KEY</button>
     <button class="hud-btn" id="open-agent-modal">⚙ AGENT</button>
-    <button class="hud-btn" id="open-data-modal">⬡ DATA</button>
+    <button class="hud-btn" id="open-data-modal">⬡ Données</button>
   </div>
   <!-- BURGER (mobile only) -->
   <button id="burger-btn" title="Menu">☰</button>
@@ -1588,7 +1588,7 @@ body::before { display: none; }
   <div class="mobile-row">
     <span class="status-pill" id="api-status-mob"><span class="status-dot"></span>OFFLINE</span>
     <select class="hud-select" id="theme-select-mob" style="flex:1">
-      <option value="cyber">◈ CYBER</option>
+      <option value="cyber">◈ Sombre</option>
       <option value="midnight">◈ MIDNIGHT</option>
       <option value="light">◈ LIGHT</option>
     </select>
@@ -1604,12 +1604,12 @@ body::before { display: none; }
   <div class="mobile-row">
     <button class="hud-btn primary" id="open-api-modal-mob" style="flex:1">⬡ API KEY</button>
     <button class="hud-btn" id="open-agent-modal-mob" style="flex:1">⚙ AGENT</button>
-    <button class="hud-btn" id="open-data-modal-mob" style="flex:1">⬡ DATA</button>
+    <button class="hud-btn" id="open-data-modal-mob" style="flex:1">⬡ Données</button>
   </div>
   <!-- Row 4 : Chat -->
   <div class="mobile-row">
-    <button class="hud-btn" id="clear-chat-mob" style="flex:1">⌫ CLEAR</button>
-    <button class="hud-btn" id="new-chat-mob" style="flex:1">+ NEW CHAT</button>
+    <button class="hud-btn" id="clear-chat-mob" style="flex:1">⌫ Effacer</button>
+    <button class="hud-btn" id="new-chat-mob" style="flex:1">+ Nouvelle conv.</button>
     <button class="hud-btn" id="archives-mob" style="flex:1">⬡ ARCHIVES</button>
   </div>
 </div>
@@ -1623,7 +1623,7 @@ body::before { display: none; }
   <button id="file-upload-btn" title="Joindre un fichier/image/audio" style="background:var(--hull);border:var(--hud-border);color:var(--text-dim);font-size:16px;width:46px;height:46px;border-radius:var(--r-lg);cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;flex-shrink:0;align-self:flex-end">📎</button>
   <input type="file" id="file-input" accept="image/*,audio/*,.pdf" style="display:none">
   <textarea id="user-input" placeholder="Transmettez votre message… (Entrée pour envoyer, Maj+Entrée pour nouvelle ligne)" rows="1"></textarea>
-  <button id="send-btn">SEND ▶</button>
+  <button id="send-btn">Envoyer ▶</button>
 </div>
 
 <!-- ═══════════════════ ARCHIVES ═══════════════════ -->
@@ -2603,7 +2603,7 @@ async function _sendMessageOriginal() {
     renderMessages();
   } finally {
     $("#send-btn").disabled = false;
-    $("#send-btn").innerHTML = "SEND ▶";
+    $("#send-btn").innerHTML = "Envoyer ▶";
   }
 }
 
@@ -2886,7 +2886,7 @@ async function sendMessage() {
       toast("Erreur API : " + err.message.slice(0,100), "error");
     } finally {
       document.getElementById('send-btn').disabled = false;
-      document.getElementById('send-btn').innerHTML = 'SEND ▶';
+      document.getElementById('send-btn').innerHTML = 'Envoyer ▶';
     }
     // Clear file
     state.attachedFile = null;
