@@ -1,0 +1,28 @@
+# Fichiers d'environnement — ne jamais committer de clés API
+.env
+.env.*
+*.env
+*.local
+
+# Sauvegardes locales contenant potentiellement une clé pré-remplie
+*.backup.html
+index.local.html
+
+# Systèmes d'exploitation
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dépendances (non utilisées dans ce projet, protège contre ajout futur accidentel)
+node_modules/
+__pycache__/
+*.pyc
+venv/
+.venv/

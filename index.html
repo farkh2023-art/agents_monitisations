@@ -1,0 +1,3826 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="cyber">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' cdn.jsdelivr.net; style-src 'unsafe-inline' cdn.jsdelivr.net fonts.googleapis.com; font-src fonts.gstatic.com; connect-src api.mistral.ai; img-src data: blob:; object-src 'none'; base-uri 'none';">
+<title>VOANH AI — Votre Intelligence Artificielle Personnelle</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════
+   VOANH DESIGN SYSTEM — CYBER / 2ADVANCED
+   ═══════════════════════════════════════════ */
+:root {
+  --void: #020509;
+  --deep: #050d18;
+  --hull: #091525;
+  --plate: #0d1e33;
+  --grid: #122540;
+  --wire: #1a3455;
+  --cyan: #00e5ff;
+  --cyan-dim: rgba(0, 229, 255, 0.15);
+  --cyan-glow: rgba(0, 229, 255, 0.35);
+  --neon: #00ff9d;
+  --neon-dim: rgba(0, 255, 157, 0.12);
+  --plasma: #ff6b35;
+  --plasma-dim: rgba(255, 107, 53, 0.15);
+  --violet: #7c3aed;
+  --violet-dim: rgba(124, 58, 237, 0.2);
+  --gold: #f59e0b;
+  --text: #b8d4f0;
+  --text-bright: #e8f4ff;
+  --text-dim: #4a6b8a;
+  --text-code: #00e5ff;
+  --danger: #ff3366;
+  --success: #00ff9d;
+  --warning: #f59e0b;
+  --font-display: 'Orbitron', monospace;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Exo 2', sans-serif;
+  --r: 6px;
+  --r-lg: 12px;
+  --border: 1px solid var(--wire);
+  --border-cyan: 1px solid rgba(0,229,255,0.3);
+  --transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  --scanline: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,229,255,0.015) 2px, rgba(0,229,255,0.015) 4px);
+  --hud-border: 1px solid rgba(0,229,255,0.2);
+}
+
+/* RESET */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: var(--wire); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+/* GLOBAL */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  font-family: var(--font-body);
+  background: var(--void);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  background-image:
+    var(--scanline),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,229,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 90% 80%, rgba(124,58,237,0.04) 0%, transparent 50%);
+}
+
+/* ═══ GRID BACKGROUND ═══ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══ HEADER ═══ */
+#voanh-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 13, 24, 0.95);
+  border-bottom: var(--hud-border);
+  backdrop-filter: blur(20px);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 0 rgba(0,229,255,0.1), 0 4px 30px rgba(0,0,0,0.5);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand-logo svg {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 0 6px rgba(0,229,255,0.8));
+}
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--text-bright);
+  text-shadow: 0 0 20px rgba(0,229,255,0.5);
+}
+.brand-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  margin-top: 2px;
+  opacity: 0.7;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ═══ HUD ELEMENTS ═══ */
+.hud-select {
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: var(--transition);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  min-width: 0;
+}
+.hud-select:hover, .hud-select:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-dim), inset 0 0 10px rgba(0,229,255,0.03);
+  color: var(--text-bright);
+}
+#model-select { max-width: 180px; }
+#agent-select { max-width: 160px; }
+
+.hud-btn {
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+.hud-btn:hover {
+  background: var(--plate);
+  border-color: rgba(0,229,255,0.5);
+  color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-dim);
+}
+.hud-btn.primary {
+  background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,255,157,0.08));
+  border-color: rgba(0,229,255,0.5);
+  color: var(--cyan);
+  font-weight: 600;
+}
+.hud-btn.primary:hover {
+  background: linear-gradient(135deg, rgba(0,229,255,0.25), rgba(0,255,157,0.15));
+  box-shadow: 0 0 15px var(--cyan-glow), inset 0 0 10px rgba(0,229,255,0.05);
+}
+.hud-btn.danger { border-color: rgba(255,51,102,0.4); color: var(--danger); }
+.hud-btn.danger:hover { box-shadow: 0 0 10px rgba(255,51,102,0.3); }
+.hud-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--text-dim);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.status-pill.active {
+  border-color: rgba(0,255,157,0.4);
+  color: var(--neon);
+  background: var(--neon-dim);
+}
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.status-pill.active .status-dot {
+  animation: pulse-dot 1.5s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px currentColor; }
+  50% { opacity: 0.4; box-shadow: none; }
+}
+
+/* ═══ CHAT AREA ═══ */
+#chat-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  min-height: 0;
+}
+
+/* ═══ MESSAGES ═══ */
+.message {
+  max-width: 82%;
+  padding: 14px 18px;
+  border-radius: var(--r-lg);
+  line-height: 1.65;
+  position: relative;
+  animation: msgIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(0,255,157,0.06));
+  border: var(--border-cyan);
+  border-bottom-right-radius: 3px;
+  color: var(--text-bright);
+  box-shadow: 0 4px 20px rgba(0,229,255,0.1);
+}
+.message.user::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, transparent 60%, rgba(0,229,255,0.05));
+  pointer-events: none;
+}
+
+.message.assistant {
+  align-self: flex-start;
+  background: var(--hull);
+  border: var(--border);
+  border-bottom-left-radius: 3px;
+  border-left: 2px solid rgba(0,229,255,0.3);
+}
+
+.message.system {
+  align-self: center;
+  max-width: 90%;
+  background: transparent;
+  border: 1px dashed var(--wire);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 8px 14px;
+  border-radius: 20px;
+}
+
+.msg-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.message.user .msg-label { color: rgba(0,229,255,0.5); }
+
+.message-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 14px;
+}
+
+.msg-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--wire);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mem-tag {
+  font-size: 9px;
+  background: rgba(124,58,237,0.2);
+  border: 1px solid rgba(124,58,237,0.4);
+  color: #a78bfa;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+}
+
+/* ═══ TYPING INDICATOR ═══ */
+.typing-indicator {
+  align-self: flex-start;
+  background: var(--hull);
+  border: var(--border);
+  border-left: 2px solid rgba(0,229,255,0.3);
+  padding: 14px 18px;
+  border-radius: var(--r-lg);
+  border-bottom-left-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: msgIn 0.25s ease;
+}
+.typing-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  animation: typingBounce 1.2s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ═══ INPUT AREA ═══ */
+#input-area {
+  background: rgba(5,13,24,0.95);
+  border-top: var(--hud-border);
+  padding: 12px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-shrink: 0;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 -1px 0 rgba(0,229,255,0.08);
+}
+#user-input {
+  flex: 1;
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--text-bright);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 12px 16px;
+  border-radius: var(--r-lg);
+  resize: none;
+  min-height: 46px;
+  max-height: 160px;
+  line-height: 1.5;
+  transition: var(--transition);
+  outline: none;
+}
+#user-input::placeholder { color: var(--text-dim); }
+#user-input:focus {
+  border-color: rgba(0,229,255,0.5);
+  box-shadow: 0 0 15px var(--cyan-dim), inset 0 0 15px rgba(0,229,255,0.02);
+}
+#send-btn {
+  background: linear-gradient(135deg, rgba(0,229,255,0.2), rgba(0,255,157,0.1));
+  border: var(--border-cyan);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 20px;
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+#send-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(0,229,255,0.3), rgba(0,255,157,0.2));
+  box-shadow: 0 0 20px var(--cyan-glow);
+  transform: translateY(-1px);
+}
+#send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ═══ MEMORY PANEL ═══ */
+#memory-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 80px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--cyan);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px var(--cyan-dim);
+  transition: var(--transition);
+}
+#memory-toggle:hover {
+  box-shadow: 0 0 25px var(--cyan-glow);
+  border-color: var(--cyan);
+}
+
+#memory-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 130px;
+  width: 300px;
+  background: rgba(9,21,37,0.97);
+  border: var(--hud-border);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  z-index: 199;
+  box-shadow: 0 0 40px rgba(0,0,0,0.6), 0 0 20px var(--cyan-dim);
+  transform: translateX(calc(100% + 20px));
+  transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+  backdrop-filter: blur(20px);
+}
+#memory-panel.active { transform: translateX(0); }
+.memory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: var(--border);
+}
+.memory-header h3 {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--cyan);
+}
+.memory-list { max-height: 200px; overflow-y: auto; font-size: 12px; }
+.memory-item {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--grid);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.memory-item:last-child { border-bottom: none; }
+.memory-item .content { flex: 1; color: var(--text); font-family: var(--font-mono); font-size: 11px; line-height: 1.4; }
+.memory-item .actions button {
+  padding: 2px 6px;
+  font-size: 10px;
+  background: transparent;
+  border: 1px solid var(--wire);
+  color: var(--danger);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-mono);
+}
+.memory-item .actions button:hover { border-color: var(--danger); background: rgba(255,51,102,0.1); }
+.memory-input {
+  display: flex;
+  gap: 7px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: var(--border);
+}
+.memory-input input {
+  flex: 1;
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 7px 10px;
+  border-radius: var(--r);
+  outline: none;
+}
+.memory-input input:focus { border-color: var(--cyan); }
+.memory-input button {
+  background: rgba(0,229,255,0.1);
+  border: var(--border-cyan);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 7px 12px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.memory-input button:hover { background: rgba(0,229,255,0.2); }
+
+/* ═══ ARCHIVES PANEL ═══ */
+#archives-btn {
+  position: fixed;
+  left: 16px;
+  bottom: 80px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--cyan);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px var(--cyan-dim);
+  transition: var(--transition);
+}
+#archives-btn:hover { box-shadow: 0 0 25px var(--cyan-glow); border-color: var(--cyan); }
+#archives-panel {
+  position: fixed;
+  left: 16px;
+  bottom: 130px;
+  width: 290px;
+  background: rgba(9,21,37,0.97);
+  border: var(--hud-border);
+  border-radius: var(--r-lg);
+  z-index: 199;
+  box-shadow: 0 0 40px rgba(0,0,0,0.6), 0 0 20px var(--cyan-dim);
+  transform: translateX(calc(-100% - 20px));
+  transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+}
+#archives-panel.active { transform: translateX(0); }
+.archives-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: var(--border);
+  flex-shrink: 0;
+}
+.archives-header h3 { font-family: var(--font-display); font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--cyan); }
+.archives-search { padding: 8px 10px; border-bottom: var(--border); flex-shrink: 0; }
+.archives-search input {
+  width: 100%;
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: var(--r);
+  outline: none;
+}
+.archives-search input:focus { border-color: var(--cyan); }
+.archives-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+.archive-item {
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: var(--transition);
+  border-bottom: 1px solid var(--grid);
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.archive-item:last-child { border-bottom: none; }
+.archive-item:hover { background: var(--hull); }
+.archive-item.active-chat { border-left: 2px solid var(--cyan); background: var(--cyan-dim); }
+.archive-item-icon { color: var(--cyan); font-size: 11px; flex-shrink: 0; margin-top: 2px; opacity: 0.6; }
+.archive-item-content { flex: 1; min-width: 0; }
+.archive-item-title { font-family: var(--font-mono); font-size: 11px; color: var(--text-bright); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
+.archive-item-meta { font-family: var(--font-mono); font-size: 9px; color: var(--text-dim); display: flex; gap: 8px; }
+.archive-item-del { background: transparent; border: none; color: var(--text-dim); cursor: pointer; padding: 2px 4px; font-size: 10px; border-radius: 3px; transition: var(--transition); flex-shrink: 0; }
+.archive-item-del:hover { color: var(--danger); }
+.archive-fav-btn { background: transparent; border: none; color: var(--text-dim); cursor: pointer; font-size: 11px; padding: 2px; flex-shrink: 0; }
+.archive-fav-btn.fav { color: var(--gold); }
+.archive-empty { padding: 20px 14px; text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
+
+/* ═══ MESSAGE ACTIONS ═══ */
+.msg-actions { display: none; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+.message:hover .msg-actions { display: flex; }
+.msg-action-btn { background: transparent; border: 1px solid var(--wire); color: var(--text-dim); font-family: var(--font-mono); font-size: 9px; padding: 2px 7px; border-radius: 3px; cursor: pointer; transition: var(--transition); letter-spacing: 0.5px; }
+.msg-action-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+/* ═══ VOICE BUTTON ═══ */
+#voice-btn { background: var(--hull); border: var(--hud-border); color: var(--text-dim); font-size: 16px; width: 46px; height: 46px; border-radius: var(--r-lg); cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; flex-shrink: 0; align-self: flex-end; }
+#voice-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+#voice-btn.recording { border-color: var(--danger); color: var(--danger); animation: pulse-border 1s infinite; background: rgba(255,51,102,0.1); }
+@keyframes pulse-border { 0%,100%{box-shadow:0 0 0 0 rgba(255,51,102,0.4)}50%{box-shadow:0 0 0 6px rgba(255,51,102,0)} }
+
+/* ═══ SCROLL TO BOTTOM ═══ */
+#scroll-bottom { position: fixed; right: 68px; bottom: 80px; z-index: 200; width: 34px; height: 34px; border-radius: 50%; background: var(--hull); border: var(--hud-border); color: var(--cyan); font-size: 14px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4); transition: var(--transition); }
+#scroll-bottom.visible { display: flex; }
+#scroll-bottom:hover { border-color: var(--cyan); box-shadow: 0 0 15px var(--cyan-glow); }
+
+/* ═══ MODALS ═══ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,5,9,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+  backdrop-filter: blur(8px);
+}
+.modal-overlay.active {
+  display: flex;
+  animation: overlayIn 0.2s ease;
+}
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-box {
+  background: var(--deep);
+  border: var(--hud-border);
+  border-radius: var(--r-lg);
+  width: 100%;
+  max-width: 640px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  box-shadow: 0 0 60px rgba(0,0,0,0.8), 0 0 30px var(--cyan-dim);
+  animation: modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.94) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  padding: 20px 24px 16px;
+  border-bottom: var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--deep);
+  z-index: 10;
+}
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal-close {
+  background: transparent;
+  border: 1px solid var(--wire);
+  color: var(--text-dim);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: var(--transition);
+  font-family: var(--font-mono);
+}
+.modal-close:hover { border-color: var(--danger); color: var(--danger); }
+
+.modal-body { padding: 20px 24px 24px; }
+
+/* ═══ FORM ELEMENTS ═══ */
+.field-group { margin-bottom: 18px; }
+.field-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 8px;
+  opacity: 0.8;
+}
+.field-input, .field-textarea, .field-select {
+  width: 100%;
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--text-bright);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 11px 14px;
+  border-radius: var(--r);
+  outline: none;
+  transition: var(--transition);
+  appearance: none;
+}
+.field-input:focus, .field-textarea:focus, .field-select:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 15px var(--cyan-dim);
+}
+.field-input::placeholder, .field-textarea::placeholder { color: var(--text-dim); }
+.field-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+.field-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 5px;
+  letter-spacing: 0.5px;
+}
+
+.info-block {
+  background: var(--hull);
+  border: var(--border);
+  border-left: 2px solid var(--cyan);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.info-block strong { color: var(--cyan); }
+.info-block code {
+  font-family: var(--font-mono);
+  background: var(--void);
+  border: 1px solid var(--grid);
+  color: var(--text-code);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+.success-block {
+  background: var(--neon-dim);
+  border: 1px solid rgba(0,255,157,0.3);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-top: 12px;
+}
+.success-block strong { color: var(--neon); }
+
+.step-list {
+  padding: 0;
+  list-style: none;
+  counter-reset: steps;
+}
+.step-list li {
+  counter-increment: steps;
+  position: relative;
+  padding: 10px 10px 10px 40px;
+  font-size: 13px;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--grid);
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before {
+  content: counter(steps);
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+  background: rgba(0,229,255,0.1);
+  border: 1px solid rgba(0,229,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--cyan);
+  line-height: 24px;
+  text-align: center;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  padding: 14px 0 10px;
+  border-top: 1px dashed var(--grid);
+  margin-top: 14px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: var(--border);
+}
+.btn-primary {
+  background: linear-gradient(135deg, rgba(0,229,255,0.2), rgba(0,255,157,0.1));
+  border: var(--border-cyan);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, rgba(0,229,255,0.3), rgba(0,255,157,0.2));
+  box-shadow: 0 0 20px var(--cyan-glow);
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--wire);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 10px 16px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 1px;
+}
+.btn-ghost:hover { border-color: var(--text-dim); color: var(--text); }
+
+.badge-neon {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--neon-dim);
+  border: 1px solid rgba(0,255,157,0.3);
+  color: var(--neon);
+  letter-spacing: 1px;
+}
+.badge-plasma {
+  background: var(--plasma-dim);
+  border-color: rgba(255,107,53,0.3);
+  color: var(--plasma);
+}
+.badge-violet {
+  background: var(--violet-dim);
+  border-color: rgba(124,58,237,0.4);
+  color: #a78bfa;
+}
+
+/* ═══ TOAST ═══ */
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  background: var(--deep);
+  border: var(--hud-border);
+  color: var(--text);
+  padding: 11px 16px;
+  border-radius: var(--r);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toastIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  max-width: 340px;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(30px) scale(0.9); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+.toast.success { border-left: 2px solid var(--neon); }
+.toast.error { border-left: 2px solid var(--danger); }
+.toast.info { border-left: 2px solid var(--cyan); }
+
+/* ═══ CORNER DECORATIONS ═══ */
+.corner-deco {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: rgba(0,229,255,0.4);
+  border-style: solid;
+}
+.corner-tl { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.corner-tr { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.corner-bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.corner-br { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+/* ═══ DATA / EXPORT SECTION ═══ */
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+.data-card {
+  background: var(--hull);
+  border: var(--border);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  text-align: center;
+}
+.data-card-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.data-card-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.export-zone {
+  border: 2px dashed var(--wire);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  margin: 12px 0;
+}
+.export-zone:hover, .export-zone.dragover {
+  border-color: rgba(0,229,255,0.5);
+  background: rgba(0,229,255,0.03);
+  box-shadow: 0 0 20px var(--cyan-dim);
+}
+.export-zone-icon { font-size: 28px; margin-bottom: 8px; }
+.export-zone-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.export-zone-text strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 13px; }
+
+/* ═══ AGENT CARDS IN MODAL ═══ */
+.agent-preview {
+  background: var(--hull);
+  border: var(--border);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.agent-preview:hover { border-color: rgba(0,229,255,0.4); background: var(--plate); }
+.agent-preview-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 3px;
+}
+.agent-preview-desc { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+
+/* ═══ LOADING SPINNER ═══ */
+.spin-ring {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(0,229,255,0.2);
+  border-top-color: var(--cyan);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══ WELCOME MESSAGE HEADER AREA ═══ */
+.welcome-banner {
+  align-self: center;
+  text-align: center;
+  padding: 28px 20px;
+  max-width: 500px;
+}
+.welcome-banner .wv-logo {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 12px;
+  color: var(--text-bright);
+  text-shadow: 0 0 30px rgba(0,229,255,0.4);
+  margin-bottom: 8px;
+}
+.welcome-banner .wv-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--cyan);
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+.welcome-banner p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* ═══ BURGER MENU ═══ */
+#burger-btn {
+  display: none;
+  background: var(--hull);
+  border: var(--hud-border);
+  color: var(--cyan);
+  font-size: 18px;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+#burger-btn:hover { border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan-dim); }
+
+#mobile-menu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: rgba(5,13,24,0.98);
+  border-bottom: var(--hud-border);
+  backdrop-filter: blur(20px);
+  z-index: 99;
+  padding: 14px 16px;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  animation: menuSlideDown 0.2s ease;
+}
+@keyframes menuSlideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+#mobile-menu.open { display: flex; }
+
+.mobile-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mobile-row .hud-select,
+.mobile-row .hud-btn {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  padding: 9px 10px;
+  text-align: center;
+}
+.mobile-row .status-pill { flex-shrink: 0; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  #voanh-header { padding: 0 12px; gap: 10px; }
+  .brand-name { font-size: 15px; letter-spacing: 3px; }
+  .brand-sub { display: none; }
+  .header-controls { display: none; }
+  .header-right { display: none; }
+  #burger-btn { display: flex; }
+  #chat-container { padding: 14px 12px; }
+  .message { max-width: 95%; }
+  #memory-panel { width: calc(100% - 90px); right: 16px; bottom: 110px; left: auto; }
+  #archives-panel { width: calc(100% - 32px); left: 16px; bottom: 110px; max-height: 65vh; }
+  .modal-overlay { padding: 0; align-items: flex-end; }
+  .modal-box { max-height: 92dvh; border-radius: var(--r-lg) var(--r-lg) 0 0; max-width: 100%; }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .data-grid { grid-template-columns: 1fr 1fr; }
+  #input-area { padding: 8px 10px; gap: 7px; }
+  #send-btn { padding: 10px 14px; font-size: 12px; }
+  #voice-btn { width: 40px; height: 40px; font-size: 14px; }
+  #scroll-bottom { right: 58px; bottom: 75px; }
+  #archives-btn { left: 62px; }
+  #memory-toggle { right: 16px; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  #model-select { max-width: 140px; }
+  #agent-select { max-width: 130px; }
+}
+
+/* ═══ THEME SWITCHER ═══ */
+[data-theme="light"] {
+  --void: #f0f4f8;
+  --deep: #e8edf5;
+  --hull: #ffffff;
+  --plate: #f5f8fc;
+  --grid: #dde5ef;
+  --wire: #c8d5e5;
+  --text: #2d4a6b;
+  --text-bright: #0d1f35;
+  --text-dim: #7a9ab8;
+  --text-code: #0070a8;
+  --cyan: #0070a8;
+  --cyan-dim: rgba(0,112,168,0.1);
+  --cyan-glow: rgba(0,112,168,0.25);
+  --neon: #00875a;
+  --neon-dim: rgba(0,135,90,0.1);
+  --void: #f2f6fb;
+}
+[data-theme="light"] body {
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,112,168,0.05) 0%, transparent 60%);
+}
+[data-theme="light"] body::before { display: none; }
+
+[data-theme="midnight"] {
+  --void: #09090f;
+  --deep: #0d0d18;
+  --hull: #131320;
+  --plate: #181828;
+  --grid: #1e1e32;
+  --wire: #252540;
+  --cyan: #9b8fff;
+  --cyan-dim: rgba(155,143,255,0.12);
+  --cyan-glow: rgba(155,143,255,0.3);
+  --neon: #ff8aff;
+  --neon-dim: rgba(255,138,255,0.1);
+}
+
+/* ═══ AI SETUP WIZARD ═══ */
+#setup-wizard-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,5,9,0.97);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
+#setup-wizard-overlay.active { display: flex; }
+.wizard-box {
+  background: var(--deep);
+  border: var(--hud-border);
+  border-radius: var(--r-lg);
+  width: 100%;
+  max-width: 640px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 40px var(--cyan-dim);
+  animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+}
+.wizard-step { display: none; padding: 32px 30px; }
+.wizard-step.active { display: block; }
+.wizard-logo {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.wizard-logo-text {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: 10px;
+  color: var(--text-bright);
+  text-shadow: 0 0 40px rgba(0,229,255,0.5);
+}
+.wizard-logo-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--cyan);
+  opacity: 0.7;
+  margin-top: 4px;
+}
+.wizard-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.wizard-subtitle {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+.wizard-progress {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.wizard-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--wire);
+  transition: var(--transition);
+}
+.wizard-dot.active { background: var(--cyan); box-shadow: 0 0 8px var(--cyan-glow); }
+.wizard-dot.done { background: var(--neon); }
+.wizard-generating {
+  text-align: center;
+  padding: 20px 0;
+}
+.wizard-gen-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  animation: spin 2s linear infinite;
+}
+.wizard-gen-status {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.wizard-gen-detail {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.agent-gen-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 16px 0;
+}
+.agent-gen-card {
+  background: var(--hull);
+  border: var(--border);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  font-size: 12px;
+  animation: msgIn 0.3s ease;
+}
+.agent-gen-card-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyan);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.agent-gen-card-desc {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* ═══ AGENT ADVANCED PARAMS ═══ */
+.agent-advanced-section {
+  background: var(--hull);
+  border: var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.agent-advanced-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  user-select: none;
+  margin-bottom: 0;
+  transition: var(--transition);
+}
+.agent-advanced-toggle:hover { color: var(--cyan); }
+.agent-advanced-toggle svg { transition: transform 0.2s; }
+.agent-advanced-toggle.open svg { transform: rotate(180deg); }
+.agent-advanced-body { display: none; padding-top: 14px; }
+.agent-advanced-body.open { display: block; }
+.range-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.range-group input[type=range] {
+  flex: 1;
+  accent-color: var(--cyan);
+}
+.range-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cyan);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ═══ RATING FEEDBACK ═══ */
+.msg-rating {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--grid);
+}
+.message.assistant:hover .msg-rating { display: flex; }
+.rating-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+.rating-star {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: var(--transition);
+  line-height: 1;
+}
+.rating-star:hover, .rating-star.active { color: var(--gold); filter: drop-shadow(0 0 4px rgba(245,158,11,0.6)); }
+
+/* ═══ FILE UPLOAD ═══ */
+.file-upload-zone {
+  border: 1px dashed rgba(0,229,255,0.3);
+  border-radius: var(--r);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--hull);
+  margin-bottom: 8px;
+}
+.file-upload-zone:hover {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+}
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--hull);
+  border: var(--border);
+  border-radius: var(--r);
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text);
+}
+.file-preview-remove {
+  background: transparent;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: auto;
+}
+.msg-image img {
+  max-width: 100%;
+  border-radius: var(--r);
+  margin-top: 8px;
+  border: var(--border);
+}
+
+/* ═══ AGENT EDIT MODE ═══ */
+.agent-card-actions {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.agent-action-btn {
+  background: transparent;
+  border: 1px solid var(--wire);
+  color: var(--text-dim);
+  font-size: 10px;
+  padding: 3px 7px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: var(--transition);
+}
+.agent-action-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.agent-action-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
+
+/* ═══ MODEL SELECT ENHANCED ═══ */
+.model-option-badge {
+  display: inline-block;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+
+/* ═══ ORCHESTRATOR TAG ═══ */
+.orchestrator-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--violet-dim);
+  border: 1px solid rgba(124,58,237,0.4);
+  color: #a78bfa;
+  letter-spacing: 1px;
+}
+
+/* ═══ CONTEXT METER ═══ */
+.context-meter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--hull);
+  border: var(--hud-border);
+  border-radius: var(--r);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.context-bar-track {
+  width: 40px;
+  height: 4px;
+  background: var(--wire);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.context-bar-fill {
+  height: 100%;
+  background: var(--cyan);
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+.context-bar-fill.warn { background: var(--warning); }
+.context-bar-fill.danger { background: var(--danger); }
+
+/* ═══ EXPORT PDF ═══ */
+@media print {
+  #voanh-header, #input-area, #memory-toggle, #memory-panel,
+  #archives-btn, #archives-panel, #scroll-bottom, .modal-overlay,
+  #mobile-menu, #toast-container, .msg-actions, .msg-rating { display: none !important; }
+  body { overflow: auto !important; background: white !important; color: #000 !important; }
+  .message { border: 1px solid #ccc !important; background: #f9f9f9 !important; }
+  .message.user { background: #e8f4ff !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header id="voanh-header">
+  <div class="brand">
+    <div class="brand-logo">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="18,2 34,12 34,24 18,34 2,24 2,12" stroke="#00e5ff" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <polygon points="18,7 29,13 29,23 18,29 7,23 7,13" stroke="#00e5ff" stroke-width="1" fill="none" opacity="0.3"/>
+        <circle cx="18" cy="18" r="4" fill="#00e5ff" opacity="0.9"/>
+        <line x1="18" y1="2" x2="18" y2="7" stroke="#00e5ff" stroke-width="1"/>
+        <line x1="18" y1="29" x2="18" y2="34" stroke="#00e5ff" stroke-width="1"/>
+        <line x1="2" y1="12" x2="7" y2="13" stroke="#00e5ff" stroke-width="1"/>
+        <line x1="34" y1="12" x2="29" y2="13" stroke="#00e5ff" stroke-width="1"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-name" id="main-brand-name">VOANH</div>
+      <div class="brand-sub">PERSONAL AI PLATFORM v3.0</div>
+    </div>
+  </div>
+
+  <div class="header-controls">
+    <select class="hud-select" id="model-select"></select>
+    <select class="hud-select" id="agent-select">
+      <option value="">▸ NO AGENT</option>
+    </select>
+    <button class="hud-btn" id="clear-chat">⌫ CLEAR</button>
+    <button class="hud-btn" id="new-chat">+ NEW</button>
+    <button class="hud-btn" id="open-archives-desktop">⬡ ARCHIVES</button>
+    <div class="context-meter" id="context-meter" title="Contexte utilisé"><div class="context-bar-track"><div class="context-bar-fill" id="context-bar" style="width:0%"></div></div><span id="context-label">0%</span></div>
+  </div>
+
+  <div class="header-right">
+    <span class="status-pill" id="api-status"><span class="status-dot"></span>OFFLINE</span>
+    <select class="hud-select" id="theme-select">
+      <option value="cyber">◈ CYBER</option>
+      <option value="midnight">◈ MIDNIGHT</option>
+      <option value="light">◈ LIGHT</option>
+    </select>
+    <button class="hud-btn primary" id="open-api-modal">⬡ API KEY</button>
+    <button class="hud-btn" id="open-agent-modal">⚙ AGENT</button>
+    <button class="hud-btn" id="open-data-modal">⬡ DATA</button>
+  </div>
+  <!-- BURGER (mobile only) -->
+  <button id="burger-btn" title="Menu">☰</button>
+</header>
+
+<!-- ═══════════════════ MOBILE MENU ═══════════════════ -->
+<div id="mobile-menu">
+  <!-- Row 1 : Statut + Thème -->
+  <div class="mobile-row">
+    <span class="status-pill" id="api-status-mob"><span class="status-dot"></span>OFFLINE</span>
+    <select class="hud-select" id="theme-select-mob" style="flex:1">
+      <option value="cyber">◈ CYBER</option>
+      <option value="midnight">◈ MIDNIGHT</option>
+      <option value="light">◈ LIGHT</option>
+    </select>
+  </div>
+  <!-- Row 2 : Modèle + Agent -->
+  <div class="mobile-row">
+    <select class="hud-select" id="model-select-mob" style="flex:1"></select>
+    <select class="hud-select" id="agent-select-mob" style="flex:1">
+      <option value="">▸ NO AGENT</option>
+    </select>
+  </div>
+  <!-- Row 3 : Actions -->
+  <div class="mobile-row">
+    <button class="hud-btn primary" id="open-api-modal-mob" style="flex:1">⬡ API KEY</button>
+    <button class="hud-btn" id="open-agent-modal-mob" style="flex:1">⚙ AGENT</button>
+    <button class="hud-btn" id="open-data-modal-mob" style="flex:1">⬡ DATA</button>
+  </div>
+  <!-- Row 4 : Chat -->
+  <div class="mobile-row">
+    <button class="hud-btn" id="clear-chat-mob" style="flex:1">⌫ CLEAR</button>
+    <button class="hud-btn" id="new-chat-mob" style="flex:1">+ NEW CHAT</button>
+    <button class="hud-btn" id="archives-mob" style="flex:1">⬡ ARCHIVES</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ CHAT ═══════════════════ -->
+<main id="chat-container"></main>
+
+<!-- ═══════════════════ INPUT ═══════════════════ -->
+<div id="input-area" style="position:relative">
+  <button id="voice-btn" title="Dictée vocale">🎤</button>
+  <button id="file-upload-btn" title="Joindre un fichier/image/audio" style="background:var(--hull);border:var(--hud-border);color:var(--text-dim);font-size:16px;width:46px;height:46px;border-radius:var(--r-lg);cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;flex-shrink:0;align-self:flex-end">📎</button>
+  <input type="file" id="file-input" accept="image/*,audio/*,.pdf" style="display:none">
+  <textarea id="user-input" placeholder="Transmettez votre message… (Entrée pour envoyer, Maj+Entrée pour nouvelle ligne)" rows="1"></textarea>
+  <button id="send-btn">SEND ▶</button>
+</div>
+
+<!-- ═══════════════════ ARCHIVES ═══════════════════ -->
+<button id="archives-btn" title="Archives des conversations">⬡</button>
+<div id="archives-panel">
+  <div class="archives-header">
+    <h3>⬡ ARCHIVES</h3>
+    <button class="btn-ghost" id="archives-new-btn" style="padding:3px 8px;font-size:9px;border-radius:3px;letter-spacing:1px">+ NOUVEAU</button>
+  </div>
+  <div class="archives-search">
+    <input type="text" id="archives-search-input" placeholder="Rechercher une conversation…">
+  </div>
+  <div class="archives-list" id="archives-list">
+    <div class="archive-empty">Aucune conversation sauvegardée</div>
+  </div>
+</div>
+<button id="scroll-bottom" title="Descendre">↓</button>
+
+<!-- ═══════════════════ MEMORY ═══════════════════ -->
+<button id="memory-toggle" title="Mémoire Globale">⬡</button>
+<div id="memory-panel">
+  <div class="memory-header">
+    <h3>⬡ MÉMOIRE GLOBALE</h3>
+    <button class="btn-ghost" id="memory-clear" style="padding:3px 8px;font-size:10px;border-radius:3px">EFFACER</button>
+  </div>
+  <div class="memory-list" id="memory-list"></div>
+  <div class="memory-input">
+    <input type="text" id="memory-input" placeholder="Ajouter à la mémoire…">
+    <button id="memory-add">+</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ MODAL : API KEY ═══════════════════ -->
+<div class="modal-overlay" id="api-modal">
+  <div class="modal-box">
+    <div class="corner-deco corner-tl"></div>
+    <div class="corner-deco corner-tr"></div>
+    <div class="corner-deco corner-bl"></div>
+    <div class="corner-deco corner-br"></div>
+    <div class="modal-header">
+      <div class="modal-title">⬡ ACTIVATION API MISTRAL</div>
+      <button class="modal-close" id="close-api-modal">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- FORMULAIRE -->
+      <div class="field-group">
+        <label class="field-label">🔑 Clé API Mistral</label>
+        <input type="password" class="field-input" id="api-key-input" placeholder="Collez votre clé ici…">
+        <div class="field-hint">Format : min. 20 caractères — ex. <code style="font-family:var(--font-mono);color:var(--text-code);font-size:11px">sk-xxxxxxxxxxxxxxxxxxxxxxxx</code></div>
+      </div>
+      <div class="btn-row" style="margin-top:0;padding-top:0;border-top:none;margin-bottom:20px">
+        <button class="btn-ghost" id="close-api-modal-2">Annuler</button>
+        <button class="btn-ghost danger" id="delete-api-key" style="border-color:rgba(255,51,102,0.3);color:var(--danger)">🗑 SUPPRIMER</button>
+        <button class="btn-primary" id="save-api-key">💾 ENREGISTRER ET ACTIVER</button>
+      </div>
+
+      <!-- SÉPARATEUR -->
+      <div class="section-title">GUIDE D'ACTIVATION — ACCÈS GRATUIT</div>
+
+      <!-- INFO TUTORIEL -->
+      <div class="info-block" style="margin-top:12px">
+        <strong>✦ Free Tier Mistral AI — Chiffres Officiels 2025</strong><br>
+        Le Free Tier de Mistral AI donne accès aux modèles via l'API sans abonnement payant. Les limites exactes dépendent du modèle utilisé, mais typiquement :
+        <ul style="padding-left:16px;margin-top:8px;line-height:2">
+          <li>Modèles légers (Ministral, Mistral Small) : <strong>~1 req/sec</strong>, plusieurs dizaines de milliers de tokens/min</li>
+          <li>Modèles large (Mistral Large, Codestral) : <strong>~500 req/heure</strong>, limites adaptées</li>
+          <li>Aucun frais de carte bancaire pour commencer</li>
+        </ul>
+        <div style="margin-top:8px;font-size:12px;color:var(--text-dim)">▸ Consultez <code>console.mistral.ai</code> → votre tableau de bord pour voir vos quotas en temps réel.</div>
+      </div>
+
+      <!-- ÉTAPES -->
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--cyan);margin:14px 0 10px;opacity:0.7">PROCÉDURE EN 4 ÉTAPES</div>
+      <ol class="step-list">
+        <li>Ouvrez <strong><code>console.mistral.ai</code></strong> dans votre navigateur</li>
+        <li>Cliquez sur <strong>"Sign Up"</strong> → créez votre compte (email + mot de passe, ou OAuth Google)</li>
+        <li>Dans le menu latéral, allez dans <strong>"API Keys"</strong> → cliquez <strong>"Create new key"</strong> → nommez-la (ex. <em>voanh-key</em>)</li>
+        <li>Copiez la clé générée (visible <strong>une seule fois</strong>) → collez-la dans le champ ci-dessus</li>
+      </ol>
+
+      <div class="success-block">
+        <strong>🔒 Persistance garantie 365 jours</strong><br>
+        Votre clé API est stockée dans un cookie sécurisé <strong>ET</strong> dans le stockage local de votre navigateur. Elle est automatiquement restaurée à chaque visite et n'est jamais transmise à aucun serveur tiers — uniquement envoyée directement à <code style="font-size:11px;color:var(--neon)">api.mistral.ai</code>.
+      </div>
+
+      <div style="margin-top:12px;font-size:12px;color:var(--text-dim);text-align:center">
+        Documentation officielle : <a href="https://docs.mistral.ai" target="_blank" style="color:var(--cyan)">docs.mistral.ai</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MODAL : AGENT ═══════════════════ -->
+<div class="modal-overlay" id="agent-modal">
+  <div class="modal-box">
+    <div class="corner-deco corner-tl"></div>
+    <div class="corner-deco corner-tr"></div>
+    <div class="corner-deco corner-bl"></div>
+    <div class="corner-deco corner-br"></div>
+    <div class="modal-header">
+      <div class="modal-title">⚙ CRÉER UN AGENT IA</div>
+      <button class="modal-close" id="close-agent-modal">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- EXPLICATION DU CERVEAU CENTRAL -->
+      <div class="info-block" style="border-left-color:var(--neon)">
+        <strong style="color:var(--neon)">▸ Qu'est-ce qu'un Agent VOANH ?</strong><br>
+        Un Agent est un <em>cerveau central</em> qui dirige chaque conversation. Il définit la <strong>personnalité</strong>, le <strong>domaine d'expertise</strong>, le <strong>ton</strong> et les <strong>règles comportementales</strong> du modèle IA. Une fois activé, chaque réponse est façonnée par ses instructions. Vous pouvez créer plusieurs agents spécialisés (dev, rédaction, analyse, recherche…) et switcher selon la tâche.
+      </div>
+
+      <!-- ONGLETS AGENTS EXISTANTS -->
+      <div id="agent-existing-list"></div>
+
+      <div style="display:flex;align-items:center;gap:8px;margin:8px 0 4px">
+        <button class="btn-ghost" id="import-agent-btn" style="font-size:10px;padding:5px 10px">⬆ IMPORTER UN AGENT</button>
+        <input type="file" id="import-agent-input" accept=".json" style="display:none">
+        <button class="btn-ghost" id="generate-more-agents-btn" style="font-size:10px;padding:5px 10px;color:var(--neon);border-color:rgba(0,255,157,0.3)">✦ GÉNÉRER + D'AGENTS</button>
+      </div>
+      <div class="section-title">CONFIGURATION DU NOUVEL AGENT</div>
+
+      <div class="field-group">
+        <label class="field-label">Nom de l'Agent <span style="color:var(--danger)">*</span></label>
+        <input type="text" class="field-input" id="agent-name" placeholder="ex. CodeArchitect, ResearchBot, BioinfoGPT…">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Rôle & Domaine d'Expertise <span style="color:var(--danger)">*</span></label>
+        <textarea class="field-textarea" id="agent-desc" rows="2" placeholder="Ex : Tu es un expert en bioinformatique spécialisé en génomique. Tu analyses les données scientifiques avec précision et cites tes sources."></textarea>
+        <div class="field-hint">▸ Décrivez la spécialité, le ton souhaité et les capacités principales de cet agent.</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="field-group">
+          <label class="field-label">Tags Mémoire</label>
+          <input type="text" class="field-input" id="agent-tags" placeholder="code, recherche, médecine">
+          <div class="field-hint">Séparés par des virgules</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Modèle préféré</label>
+          <select class="field-input field-select" id="agent-model-pref">
+            <option value="">Auto (par défaut)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Instructions Comportementales Avancées</label>
+        <textarea class="field-textarea" id="agent-instructions" rows="4" placeholder="Ex :&#10;- Réponds toujours en français sauf si l'utilisateur écrit en anglais&#10;- Structure tes réponses avec des sections claires&#10;- Cite systématiquement les sources et les APIs utilisées&#10;- Si la question dépasse ton domaine, dis-le clairement"></textarea>
+        <div class="field-hint">▸ Ces règles sont injectées dans chaque prompt système. Soyez précis pour un comportement optimal du cerveau central.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Phrase d'Amorce (Contexte Initial)</label>
+        <textarea class="field-textarea" id="agent-primer" rows="2" placeholder="Ex : 'Je commence chaque analyse par une revue des publications récentes sur PubMed…'"></textarea>
+        <div class="field-hint">▸ Contexte de départ injecté au début de la conversation.</div>
+      </div>
+
+      <!-- ADVANCED PARAMS CREATE -->
+      <div class="agent-advanced-section" style="margin-top:8px">
+        <div class="agent-advanced-toggle" id="create-adv-toggle">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 9L1 3h10z"/></svg>
+          PARAMÈTRES AVANCÉS (optionnel)
+        </div>
+        <div class="agent-advanced-body" id="create-adv-body">
+          <div class="field-group" style="margin-bottom:12px">
+            <label class="field-label">Température</label>
+            <div class="range-group">
+              <input type="range" id="create-agent-temp" min="0" max="2" step="0.05" value="0.7">
+              <span class="range-value" id="create-agent-temp-val">0.7</span>
+            </div>
+          </div>
+          <div class="field-group" style="margin-bottom:12px">
+            <label class="field-label">Style de réponse</label>
+            <select class="field-input field-select" id="create-agent-style">
+              <option value="">Auto</option>
+              <option value="concis">Concis & Direct</option>
+              <option value="detaille">Détaillé & Exhaustif</option>
+              <option value="formel">Formel & Professionnel</option>
+              <option value="creatif">Créatif & Innovant</option>
+              <option value="pedagogique">Pédagogique & Clair</option>
+            </select>
+          </div>
+          <div class="field-group" style="margin-bottom:0">
+            <label class="field-label">Instructions Interdites</label>
+            <textarea class="field-textarea" id="create-agent-forbidden" rows="2" placeholder="Ex : Ne jamais donner de conseils médicaux directs."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-ghost" id="close-agent-modal-2">Annuler</button>
+        <button class="btn-primary" id="save-agent">⚙ CRÉER L'AGENT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MODAL : DATA ═══════════════════ -->
+<div class="modal-overlay" id="data-modal">
+  <div class="modal-box">
+    <div class="corner-deco corner-tl"></div>
+    <div class="corner-deco corner-tr"></div>
+    <div class="corner-deco corner-bl"></div>
+    <div class="corner-deco corner-br"></div>
+    <div class="modal-header">
+      <div class="modal-title">⬡ GESTION DES DONNÉES</div>
+      <button class="modal-close" id="close-data-modal">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="info-block">
+        <strong>▸ Stockage 100% Local</strong><br>
+        Toutes vos données (conversations, agents, mémoires) sont stockées dans la base IndexedDB de votre navigateur. Exportez-les pour les sauvegarder ou les transférer sur un autre appareil.
+      </div>
+
+      <!-- STATS -->
+      <div class="data-grid" id="data-stats">
+        <div class="data-card"><div class="data-card-value" id="stat-chats">—</div><div class="data-card-label">Conversations</div></div>
+        <div class="data-card"><div class="data-card-value" id="stat-agents">—</div><div class="data-card-label">Agents</div></div>
+        <div class="data-card"><div class="data-card-value" id="stat-memories">—</div><div class="data-card-label">Mémoires</div></div>
+        <div class="data-card"><div class="data-card-value" id="stat-size">—</div><div class="data-card-label">Taille estimée</div></div>
+      </div>
+
+      <!-- EXPORT -->
+      <div class="section-title">EXPORTER VOS DONNÉES</div>
+      <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;line-height:1.6">Téléchargez toutes vos données dans un fichier <code style="font-family:var(--font-mono);font-size:10px;color:var(--cyan)">.voanh.json</code> que vous pourrez réimporter à tout moment.</p>
+      <button class="btn-primary" id="btn-export" style="width:100%;justify-content:center;display:flex;gap:8px;align-items:center">
+        ⬇ TÉLÉCHARGER TOUTES LES DONNÉES
+      </button>
+
+      <!-- IMPORT -->
+      <div class="section-title">IMPORTER DES DONNÉES</div>
+      <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;line-height:1.6">Restaurez une sauvegarde précédente. <strong style="color:var(--warning)">Attention :</strong> les données existantes seront fusionnées (non remplacées).</p>
+
+      <!-- Zone sélection fichier -->
+      <div class="export-zone" id="import-drop-zone">
+        <div class="export-zone-icon">⬆</div>
+        <div class="export-zone-text">
+          <strong id="import-zone-label">Glissez votre fichier .voanh.json ici</strong>
+          ou cliquez pour sélectionner
+        </div>
+      </div>
+      <input type="file" id="import-file-input" accept=".json,.voanh.json" style="display:none">
+
+      <!-- Aperçu fichier sélectionné (caché par défaut) -->
+      <div id="import-preview" style="display:none;background:var(--hull);border:var(--hud-border);border-radius:var(--r);padding:14px 16px;margin-top:10px">
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--cyan);margin-bottom:8px">FICHIER SÉLECTIONNÉ</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <span style="font-size:22px">📄</span>
+          <div>
+            <div id="import-filename" style="font-family:var(--font-mono);font-size:12px;color:var(--text-bright)">—</div>
+            <div id="import-fileinfo" style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:2px">—</div>
+          </div>
+        </div>
+        <div id="import-summary" style="font-size:12px;color:var(--text);line-height:1.7;background:var(--void);border-radius:var(--r);padding:10px 12px;margin-bottom:12px;border:1px solid var(--grid)">
+          Analyse en cours…
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-ghost" id="btn-import-cancel" style="flex:1">✕ Annuler</button>
+          <button class="btn-primary" id="btn-import-confirm" style="flex:2;justify-content:center;display:flex;gap:6px;align-items:center">
+            ✓ VALIDER ET RESTAURER
+          </button>
+        </div>
+      </div>
+
+      <!-- DANGER ZONE -->
+      <div class="section-title" style="border-top-color:rgba(255,51,102,0.3);color:rgba(255,51,102,0.6)">ZONE CRITIQUE</div>
+      <button class="btn-ghost" id="btn-clear-all" style="width:100%;justify-content:center;display:flex;border-color:rgba(255,51,102,0.3);color:var(--danger)">
+        ⚠ SUPPRIMER TOUTES LES DONNÉES LOCALES
+      </button>
+
+      <div class="btn-row" style="border-top:none;margin-top:12px;padding-top:0">
+        <button class="btn-ghost" id="close-data-modal-2">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<!-- ═══════════════════ SETUP WIZARD ═══════════════════ -->
+<div id="setup-wizard-overlay">
+  <div class="wizard-box">
+    <div class="corner-deco corner-tl"></div>
+    <div class="corner-deco corner-tr"></div>
+    <div class="corner-deco corner-bl"></div>
+    <div class="corner-deco corner-br"></div>
+
+    <!-- STEP 1: Welcome & API Key -->
+    <div class="wizard-step active" id="wizard-step-1">
+      <div class="wizard-logo">
+        <div class="wizard-logo-text">VOANH</div>
+        <div class="wizard-logo-sub">PERSONAL AI PLATFORM</div>
+      </div>
+      <div class="wizard-progress">
+        <div class="wizard-dot active" id="wdot-1"></div>
+        <div class="wizard-dot" id="wdot-2"></div>
+        <div class="wizard-dot" id="wdot-3"></div>
+      </div>
+      <div class="wizard-title">Bienvenue sur VOANH AI</div>
+      <div class="wizard-subtitle">Votre IA personnelle, configurée selon votre vision.<br>Commençons par activer votre accès Mistral.</div>
+      <div class="field-group">
+        <label class="field-label">🔑 Clé API Mistral <span style="color:var(--danger)">*</span></label>
+        <input type="password" class="field-input" id="wizard-api-key" placeholder="Collez votre clé API Mistral ici…">
+        <div class="field-hint">Obtenez votre clé gratuite sur <a href="https://console.mistral.ai" target="_blank" style="color:var(--cyan)">console.mistral.ai</a> → API Keys</div>
+      </div>
+      <div class="btn-row" style="border-top:none;padding-top:0">
+        <button class="btn-primary" id="wizard-step1-next" style="width:100%;justify-content:center;display:flex">CONTINUER →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: AI Goal & Name -->
+    <div class="wizard-step" id="wizard-step-2">
+      <div class="wizard-progress">
+        <div class="wizard-dot done" id="wdot-1b"></div>
+        <div class="wizard-dot active" id="wdot-2b"></div>
+        <div class="wizard-dot" id="wdot-3b"></div>
+      </div>
+      <div class="wizard-title">Définissez votre IA</div>
+      <div class="wizard-subtitle">Ces informations permettront à VOANH de générer automatiquement 20 agents spécialisés parfaitement adaptés à votre contexte.</div>
+      <div class="field-group">
+        <label class="field-label">🎯 Nom de votre IA <span style="color:var(--danger)">*</span></label>
+        <input type="text" class="field-input" id="wizard-ai-name" placeholder="Ex : Atlas, Sentinel, Nexus, MyAssistant…">
+        <div class="field-hint">Ce nom sera affiché dans l'interface et utilisé par vos agents.</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">🚀 But principal de votre IA <span style="color:var(--danger)">*</span></label>
+        <textarea class="field-textarea" id="wizard-ai-goal" rows="3" placeholder="Décrivez votre contexte et objectif. Ex : &#10;'Je suis développeur freelance web, j'ai besoin d'une IA pour m'aider avec le code, la gestion de projets clients, la rédaction de propositions commerciales et la veille technologique.'&#10;ou&#10;'Je suis étudiant en médecine, j'ai besoin d'aide pour réviser, comprendre des cas cliniques, préparer mes examens et m'organiser.'"></textarea>
+        <div class="field-hint">▸ Plus vous êtes précis, plus les agents générés seront pertinents.</div>
+      </div>
+      <div class="btn-row" style="border-top:none;padding-top:0">
+        <button class="btn-ghost" id="wizard-step2-back">← Retour</button>
+        <button class="btn-primary" id="wizard-step2-next">GÉNÉRER MES AGENTS →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Generating -->
+    <div class="wizard-step" id="wizard-step-3">
+      <div class="wizard-progress">
+        <div class="wizard-dot done"></div>
+        <div class="wizard-dot done"></div>
+        <div class="wizard-dot active"></div>
+      </div>
+      <div class="wizard-title" id="wizard-step3-title">Génération des Agents IA</div>
+      <div class="wizard-subtitle" id="wizard-step3-sub">Mistral analyse votre profil et crée 20 agents ultra-spécialisés…</div>
+      <div class="wizard-generating" id="wizard-gen-loader">
+        <div class="wizard-gen-icon">⚙</div>
+        <div class="wizard-gen-status">GÉNÉRATION EN COURS…</div>
+        <div class="wizard-gen-detail" id="wizard-gen-detail">Connexion à Mistral AI…</div>
+      </div>
+      <div id="wizard-agents-preview" style="display:none">
+        <div class="agent-gen-grid" id="wizard-agents-grid"></div>
+        <div class="btn-row" style="border-top:none;padding-top:8px">
+          <button class="btn-primary" id="wizard-finish" style="width:100%;justify-content:center;display:flex">🚀 LANCER VOANH AI →</button>
+        </div>
+      </div>
+      <div id="wizard-gen-error" style="display:none">
+        <div class="info-block" style="border-left-color:var(--danger)">
+          <strong style="color:var(--danger)">Erreur de génération</strong><br>
+          <span id="wizard-error-msg"></span>
+        </div>
+        <div class="btn-row" style="border-top:none;padding-top:8px">
+          <button class="btn-ghost" id="wizard-retry">↺ Réessayer</button>
+          <button class="btn-primary" id="wizard-skip-gen">Passer sans agents →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MODAL : EDIT AGENT ═══════════════════ -->
+<div class="modal-overlay" id="edit-agent-modal">
+  <div class="modal-box">
+    <div class="corner-deco corner-tl"></div>
+    <div class="corner-deco corner-tr"></div>
+    <div class="corner-deco corner-bl"></div>
+    <div class="corner-deco corner-br"></div>
+    <div class="modal-header">
+      <div class="modal-title">✏ MODIFIER L'AGENT</div>
+      <button class="modal-close" id="close-edit-agent-modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-agent-id">
+      <div class="field-group">
+        <label class="field-label">Nom de l'Agent <span style="color:var(--danger)">*</span></label>
+        <input type="text" class="field-input" id="edit-agent-name">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Rôle & Description <span style="color:var(--danger)">*</span></label>
+        <textarea class="field-textarea" id="edit-agent-desc" rows="2"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="field-group">
+          <label class="field-label">Tags Mémoire</label>
+          <input type="text" class="field-input" id="edit-agent-tags" placeholder="code, recherche, santé">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Modèle préféré</label>
+          <select class="field-input field-select" id="edit-agent-model-pref">
+            <option value="">Auto</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Instructions Comportementales</label>
+        <textarea class="field-textarea" id="edit-agent-instructions" rows="4"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Phrase d'Amorce</label>
+        <textarea class="field-textarea" id="edit-agent-primer" rows="2"></textarea>
+      </div>
+      <!-- ADVANCED PARAMS -->
+      <div class="agent-advanced-section">
+        <div class="agent-advanced-toggle" id="edit-adv-toggle">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 9L1 3h10z"/></svg>
+          PARAMÈTRES AVANCÉS
+        </div>
+        <div class="agent-advanced-body" id="edit-adv-body">
+          <div class="field-group" style="margin-bottom:12px">
+            <label class="field-label">Température (créativité)</label>
+            <div class="range-group">
+              <input type="range" id="edit-agent-temp" min="0" max="2" step="0.05" value="0.7">
+              <span class="range-value" id="edit-agent-temp-val">0.7</span>
+            </div>
+            <div class="field-hint">0 = déterministe &nbsp;•&nbsp; 1 = équilibré &nbsp;•&nbsp; 2 = très créatif</div>
+          </div>
+          <div class="field-group" style="margin-bottom:12px">
+            <label class="field-label">Max Tokens réponse</label>
+            <div class="range-group">
+              <input type="range" id="edit-agent-maxtok" min="256" max="16000" step="256" value="4096">
+              <span class="range-value" id="edit-agent-maxtok-val">4096</span>
+            </div>
+          </div>
+          <div class="field-group" style="margin-bottom:12px">
+            <label class="field-label">Style de réponse</label>
+            <select class="field-input field-select" id="edit-agent-style">
+              <option value="">Auto</option>
+              <option value="concis">Concis & Direct</option>
+              <option value="detaille">Détaillé & Exhaustif</option>
+              <option value="formel">Formel & Professionnel</option>
+              <option value="creatif">Créatif & Innovant</option>
+              <option value="pedagogique">Pédagogique & Clair</option>
+            </select>
+          </div>
+          <div class="field-group" style="margin-bottom:12px">
+            <label class="field-label">Instructions Interdites (Never say…)</label>
+            <textarea class="field-textarea" id="edit-agent-forbidden" rows="2" placeholder="Ex : Ne jamais mentionner de concurrents. Ne pas donner de conseils médicaux directs."></textarea>
+          </div>
+          <div class="field-group" style="margin-bottom:0">
+            <label class="field-label">Priorité Mémoire</label>
+            <div class="range-group">
+              <input type="range" id="edit-agent-mem-prio" min="1" max="5" step="1" value="3">
+              <span class="range-value" id="edit-agent-mem-prio-val">3</span>
+            </div>
+            <div class="field-hint">1 = ignore mémoire &nbsp;•&nbsp; 5 = mémoire maximale</div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-ghost" id="close-edit-agent-modal-2">Annuler</button>
+        <button class="btn-ghost" id="duplicate-agent-btn" style="color:var(--neon);border-color:rgba(0,255,157,0.3)">⎘ Dupliquer</button>
+        <button class="btn-primary" id="save-edit-agent">💾 ENREGISTRER</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+  JAVASCRIPT
+═══════════════════════════════════════════ -->
+<script>
+// ════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════
+const MODELS = [
+  { id:"mistral-large-2512",          name:"🔥 Mistral Omega — Le Plus Puissant",  badge:"🔥 Puissant",  desc:"Raisonnement complexe, analyse longue, meilleure qualité",   tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"mistral-medium-2508",         name:"⚡ Mistral Zenith — Meilleur Ratio",   badge:"⚡ Rapide",    desc:"Meilleur rapport qualité/vitesse pour usage quotidien",       tokens:375000, ctx:"-",    temp:0.48 },
+  { id:"codestral-2508",              name:"💻 CodeForge (Codestral) — Code",      badge:"💻 Code",      desc:"Expert génération et optimisation de code, tous langages",    tokens:50000,  ctx:"4M",   temp:0.48 },
+  { id:"devstral-2512",               name:"💻 DevMind Ultra — Dev Full-Stack",    badge:"💻 Dev",       desc:"Développement full-stack, architecture, debugging avancé",    tokens:50000,  ctx:"4M",   temp:0.48 },
+  { id:"devstral-medium-2507",        name:"💻 DevPulse Medium — Dev Quotidien",   badge:"💻 Dev",       desc:"Équilibre parfait pour le développement quotidien",           tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"devstral-small-2507",         name:"⚡ DevSpark Lite — Dev Rapide",        badge:"⚡ Rapide",    desc:"Rapide et léger pour tâches dev simples",                     tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"ministral-8b-2512",           name:"⚡ MicroGenius 8B — Usage Quotidien",  badge:"⚡ Rapide",    desc:"Compact, rapide, parfait pour questions et tâches courantes", tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"ministral-3b-2512",           name:"⚡ NanoMind 3B — Ultra Rapide",        badge:"⚡ Ultra",     desc:"Ultra-rapide, idéal pour micro-tâches et réponses rapides",   tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"ministral-14b-2512",          name:"🔥 MiniTitan 14B — Haute Performance", badge:"🔥 Puissant",  desc:"Performance dense, efficacité maximale, meilleur 14B",        tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"magistral-medium-2509",       name:"🔥 MagiCore — Raisonnement",          badge:"🔥 Raisonnement", desc:"Puissance maîtrisée pour raisonnement et analyse",          tokens:75000,  ctx:"1B",   temp:0.48 },
+  { id:"magistral-small-2509",        name:"⚡ MagiSwift — Raisonnement Rapide",  badge:"⚡ Rapid-Reason", desc:"Raisonnement rapide et précis, contexte 1B",               tokens:75000,  ctx:"1B",   temp:0.48 },
+  { id:"mistral-medium-2505",         name:"🔥 Mistral Equinox — Contexte Long",  badge:"🔥 Long ctx",  desc:"Contexte 375k tokens, analyses de longs documents",           tokens:375000, ctx:"-",    temp:0.48 },
+  { id:"mistral-small-2506",          name:"⚡ Mistral Flash — Instantané",       badge:"⚡ Flash",     desc:"Réponses instantanées, faible latence, très économique",       tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"mistral-small-2603",          name:"⚡ Mistral Nova — Contexte Long",     badge:"⚡ Long ctx",  desc:"Contexte très large 375k, analyse de longues conversations",  tokens:375000, ctx:"-",    temp:1.44 },
+  { id:"labs-mistral-small-creative", name:"✨ CreatiFlow — Créatif",             badge:"✨ Créatif",   desc:"Explosion créative pour brainstorming et idées innovantes",   tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"open-mistral-nemo",           name:"⚡ Nemo OpenCore — Open Source",      badge:"⚡ Open",      desc:"Polyvalent, open-source, fiable et gratuit",                  tokens:50000,  ctx:"4M",   temp:0.42 },
+  { id:"pixtral-12b-2409",            name:"👁 Pixtral Vision — Analyse Images",  badge:"👁 Vision",    desc:"Analyse visuelle multimodale, comprend images et texte",       tokens:50000,  ctx:"4M",   temp:0.42, vision:true },
+  { id:"pixtral-large-2411",          name:"👁 Pixtral OmniSight — Vision Pro",   badge:"👁 Vision Pro", desc:"Vision premium, compréhension profonde d'images complexes",  tokens:50000,  ctx:"4M",   temp:0.42, vision:true },
+  { id:"voxtral-mini-2507",           name:"🎵 Voxtral Echo — Audio Léger",       badge:"🎵 Audio",     desc:"Traitement audio, transcription légère et précise",            tokens:50000,  ctx:"4M",   temp:0.42, audio:true },
+  { id:"voxtral-small-2507",          name:"🎵 Voxtral Sonic — Audio Rapide",     badge:"🎵 Audio",     desc:"Audio rapide, transcription intelligente multi-langues",       tokens:50000,  ctx:"4M",   temp:0.42, audio:true }
+];
+
+const DB_NAME = "VOANH_AI_DB";
+const DB_VERSION = 3;
+
+let state = {
+  apiKey: null,
+  chatId: null,
+  messages: [],
+  agent: null,
+  model: "codestral-2508",
+  globalMemories: [],
+  aiConfig: null, // {name, goal} from wizard
+  attachedFile: null  // {type, data, name, mimeType}
+};
+
+// ════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const uuid = () => crypto.randomUUID();
+const now = () => Date.now();
+
+const escapeHtml = t => (t||'')
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/\n/g,"<br>");
+
+const toast = (msg, type = "info") => {
+  const t = document.createElement("div");
+  t.className = `toast ${type}`;
+  const icon = type === "error" ? "⚠" : type === "success" ? "✓" : "◈";
+  t.innerHTML = `<span style="color:${type==='error'?'var(--danger)':type==='success'?'var(--neon)':'var(--cyan)'}">${icon}</span><span>${msg}</span>`;
+  $("#toast-container").appendChild(t);
+  setTimeout(() => t.remove(), 3800);
+};
+
+// Stockage persistant API key : cookie 365j + localStorage fallback
+const setCookie = (n, v, d = 365) => {
+  try {
+    const e = new Date(); e.setDate(e.getDate() + d);
+    document.cookie = `${n}=${encodeURIComponent(v)};expires=${e.toUTCString()};path=/;SameSite=Strict`;
+  } catch(err) {}
+  try { localStorage.setItem('voanh_' + n, v); } catch(err) {}
+};
+const getCookie = n => {
+  // Priorité : cookie, puis localStorage
+  try {
+    const m = document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)');
+    if (m) return decodeURIComponent(m.pop());
+  } catch(err) {}
+  try { const v = localStorage.getItem('voanh_' + n); if (v) return v; } catch(err) {}
+  return null;
+};
+const deleteCookie = n => {
+  try { document.cookie = `${n}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;SameSite=Strict`; } catch(err) {}
+  try { localStorage.removeItem('voanh_' + n); } catch(err) {}
+};
+
+const isValidApiKey = k => {
+  const c = k.trim();
+  if (c.length < 20) return false;
+  return /^[A-Za-z0-9\-_]{20,}$/.test(c);
+};
+
+// ════════════════════════════════════════
+// INDEXEDDB
+// ════════════════════════════════════════
+const db = {
+  open: () => new Promise((res, rej) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      ['chats','agents','settings','global_memory'].forEach(s => {
+        if (!d.objectStoreNames.contains(s)) d.createObjectStore(s, { keyPath:'id' });
+      });
+    };
+    req.onsuccess = e => { db.conn = e.target.result; res(db.conn); };
+    req.onerror = e => rej(e.target.error);
+  }),
+  put: (store, data) => new Promise((res, rej) => {
+    try {
+      const tx = db.conn.transaction(store, 'readwrite');
+      const r = tx.objectStore(store).put(data);
+      r.onsuccess = () => res(); r.onerror = e => rej(e.target.error);
+    } catch(e) { rej(e); }
+  }),
+  get: (store, id) => new Promise((res, rej) => {
+    try {
+      const tx = db.conn.transaction(store, 'readonly');
+      const r = tx.objectStore(store).get(id);
+      r.onsuccess = () => res(r.result); r.onerror = e => rej(e.target.error);
+    } catch(e) { rej(e); }
+  }),
+  getAll: store => new Promise((res, rej) => {
+    try {
+      const tx = db.conn.transaction(store, 'readonly');
+      const r = tx.objectStore(store).getAll();
+      r.onsuccess = () => res(r.result); r.onerror = e => rej(e.target.error);
+    } catch(e) { rej(e); }
+  }),
+  delete: (store, id) => new Promise((res, rej) => {
+    try {
+      const tx = db.conn.transaction(store, 'readwrite');
+      const r = tx.objectStore(store).delete(id);
+      r.onsuccess = () => res(); r.onerror = e => rej(e.target.error);
+    } catch(e) { rej(e); }
+  })
+};
+
+// ════════════════════════════════════════
+// MEMORY SYSTEM
+// ════════════════════════════════════════
+const memory = {
+  add: async (content, tags = []) => {
+    const entry = {
+      id: uuid(), content,
+      tags: Array.isArray(tags) ? tags : (tags||"").split(',').map(t=>t.trim()).filter(Boolean),
+      created: now(), importance: 1
+    };
+    await db.put('global_memory', entry);
+    state.globalMemories.push(entry);
+    renderMemoryList();
+    return entry;
+  },
+  getAll: async () => {
+    state.globalMemories = await db.getAll('global_memory') || [];
+    renderMemoryList();
+  },
+  clear: async () => {
+    const all = await db.getAll('global_memory') || [];
+    for (const m of all) await db.delete('global_memory', m.id);
+    state.globalMemories = [];
+    renderMemoryList();
+    toast("Mémoire globale effacée", "success");
+  },
+  getRelevant: (query, limit = 5) => {
+    if (!state.globalMemories?.length) return [];
+    const q = query.toLowerCase();
+    return state.globalMemories
+      .map(m => ({ ...m, score:(m.content.toLowerCase().includes(q)?2:0) + ((m.tags||[]).some(t=>q.includes(t.toLowerCase()))?1:0) + (m.importance||1) }))
+      .filter(m => m.score > 0)
+      .sort((a,b) => b.score - a.score)
+      .slice(0, limit)
+      .map(m => `[MEM:${(m.tags||[]).join(',')}] ${m.content}`);
+  }
+};
+
+function renderMemoryList() {
+  const list = $("#memory-list");
+  if (!state.globalMemories?.length) {
+    list.innerHTML = '<div style="color:var(--text-dim);font-family:var(--font-mono);font-size:11px;padding:8px 0">Aucune mémoire enregistrée</div>';
+    return;
+  }
+  list.innerHTML = state.globalMemories.slice(-12).reverse().map(m => `
+    <div class="memory-item">
+      <div class="content">${escapeHtml(m.content)}</div>
+      <div class="actions"><button onclick="memoryDelete('${m.id}')">✕</button></div>
+    </div>
+  `).join('');
+}
+window.memoryDelete = async id => {
+  await db.delete('global_memory', id);
+  state.globalMemories = state.globalMemories.filter(m => m.id !== id);
+  renderMemoryList();
+};
+
+window.copyMsg = ts => {
+  const el = document.getElementById('mc-' + ts);
+  if (!el) return;
+  const text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(() => toast("Message copié !", "success")).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    toast("Message copié !", "success");
+  });
+};
+
+window.saveToMemory = async ts => {
+  const el = document.getElementById('mc-' + ts);
+  if (!el) return;
+  const text = (el.innerText || el.textContent).slice(0, 200);
+  await memory.add(text);
+  toast("Ajouté à la mémoire globale", "success");
+};
+
+// ════════════════════════════════════════
+// CHAT RENDERING
+// ════════════════════════════════════════
+function renderMessages() {
+  const c = $("#chat-container");
+  const msgs = (state.messages || []).filter(m => m.role !== 'system');
+
+  if (!msgs.length) {
+    c.innerHTML = `
+      <div class="welcome-banner">
+        <div class="wv-logo">VOANH</div>
+        <div class="wv-sub">Satoshi Nakamoto AI PLATFORM v3.0</div>
+        <p>Interface avancée avec mémoire globale, agents spécialisés et accès aux ${MODELS.length} modèles Mistral AI. Configurez votre clé API pour commencer.</p>
+      </div>`;
+    return;
+  }
+
+  c.innerHTML = '';
+  msgs.forEach(m => {
+    const div = document.createElement("div");
+    div.className = `message ${m.role}`;
+    const memTags = m.memoryUsed?.length ? `<span class="mem-tag">⬡ MEM×${m.memoryUsed.length}</span>` : '';
+    const label = m.role === 'user' ? '▸ VOUS' : `▸ ${state.agent ? state.agent.name.toUpperCase() : 'VOANH'}`;
+    const msgId = m.ts || Date.now();
+    const memoBtn = m.role === 'assistant' ? '<button class="msg-action-btn" onclick="saveToMemory(' + msgId + ')">⬡ MÉMO</button>' : '';
+    const printBtn = m.role === 'assistant' ? '<button class="msg-action-btn" onclick="window.print()">🖨 PDF</button>' : '';
+    const ratingHtml = m.role === 'assistant' ? `<div class="msg-rating"><span class="rating-label">QUALITÉ</span>${[1,2,3,4,5].map(s => `<button class="rating-star${(m.rating||0)>=s?' active':''}" onclick="rateMessage(${msgId},${s})">★</button>`).join('')}</div>` : '';
+    const imgHtml = m.imageData ? `<div class="msg-image"><img src="${m.imageData}" alt="Image jointe" loading="lazy"></div>` : '';
+    const audioHtml = m.audioName ? `<div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:4px">🎵 ${m.audioName}</div>` : '';
+    div.innerHTML = `
+      <div class="msg-label">${label}</div>
+      ${imgHtml}${audioHtml}
+      <div class="message-content" id="mc-${msgId}">${escapeHtml(m.content || '')}</div>
+      <div class="msg-meta">
+        <span>${new Date(m.ts).toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit',second:'2-digit'})}</span>
+        ${memTags}
+      </div>
+      ${ratingHtml}
+      <div class="msg-actions">
+        <button class="msg-action-btn" onclick="copyMsg(${msgId})">⎘ COPIER</button>
+        ${memoBtn}
+        ${printBtn}
+      </div>`;
+    c.appendChild(div);
+  });
+  c.scrollTop = c.scrollHeight;
+}
+
+function showTyping() {
+  const div = document.createElement("div");
+  div.className = "typing-indicator";
+  div.id = "typing-indicator";
+  div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  $("#chat-container").appendChild(div);
+  $("#chat-container").scrollTop = $("#chat-container").scrollHeight;
+}
+function hideTyping() {
+  const t = $("#typing-indicator");
+  if (t) t.remove();
+}
+
+// ════════════════════════════════════════
+// SYSTEM PROMPT
+// ════════════════════════════════════════
+function buildSystemPrompt() {
+  const aiName = state.aiConfig?.name || 'VOANH';
+  let prompt = `You are ${aiName}, a powerful AI assistant. Be precise, professional, and helpful.`;
+  if (state.agent) {
+    prompt = `[AGENT ${aiName} : ${state.agent.name}]\n`;
+    prompt += `Rôle : ${state.agent.desc || ''}`;
+    if (state.agent.instructions) prompt += `\n\nInstructions : ${state.agent.instructions}`;
+    if (state.agent.primer) prompt += `\n\nContexte initial : ${state.agent.primer}`;
+    if (state.agent.style) {
+      const styleMap = {concis:'Réponds de manière concise et directe.',detaille:'Réponds de manière exhaustive et détaillée.',formel:'Maintiens un ton formel et professionnel.',creatif:'Sois créatif et innovant dans tes réponses.',pedagogique:'Adopte une approche pédagogique et claire.'};
+      if (styleMap[state.agent.style]) prompt += `\n\nStyle : ${styleMap[state.agent.style]}`;
+    }
+    if (state.agent.forbidden) prompt += `\n\nINTERDIT DE : ${state.agent.forbidden}`;
+  }
+  const memPrio = state.agent?.memPrio || 3;
+  const memLimit = Math.min(memPrio * 2, 8);
+  const rel = memory.getRelevant("context", memLimit);
+  if (rel.length) prompt += `\n\n[MÉMOIRE GLOBALE ACTIVE]\n${rel.join('\n')}`;
+  prompt += "\n\nRéponds dans la langue de l'utilisateur. Sois précis, structuré et professionnel.";
+  return prompt;
+}
+
+function updateContextMeter() {
+  try {
+    const msgs = (state.messages||[]).slice(-22);
+    const totalChars = msgs.reduce((s,m) => s + (m.content||'').length, 0);
+    const model = MODELS.find(m => m.id === state.model);
+    const maxCtx = (model?.tokens || 50000) * 4; // rough chars
+    const pct = Math.min(100, Math.round((totalChars / maxCtx) * 100));
+    const bar = document.getElementById('context-bar');
+    const label = document.getElementById('context-label');
+    if (bar && label) {
+      bar.style.width = pct + '%';
+      bar.className = 'context-bar-fill' + (pct > 80 ? ' danger' : pct > 60 ? ' warn' : '');
+      label.textContent = pct + '%';
+    }
+  } catch(e) {}
+}
+
+// ════════════════════════════════════════
+// ARCHIVES
+// ════════════════════════════════════════
+let archivesSearchQuery = "";
+
+async function renderArchives() {
+  const list = $("#archives-list");
+  if (!list) return;
+  try {
+    let chats = await db.getAll('chats') || [];
+    chats = chats.sort((a, b) => (b.updated||0) - (a.updated||0));
+    if (archivesSearchQuery) {
+      const q = archivesSearchQuery.toLowerCase();
+      chats = chats.filter(c => (c.title||"").toLowerCase().includes(q) ||
+        (c.messages||[]).some(m => (m.content||"").toLowerCase().includes(q)));
+    }
+    if (!chats.length) {
+      list.innerHTML = '<div class="archive-empty">Aucune conversation trouvée</div>';
+      return;
+    }
+    list.innerHTML = chats.map(c => {
+      const isActive = c.id === state.chatId;
+      const isFav = c.fav ? true : false;
+      const msgCount = (c.messages||[]).filter(m=>m.role!=='system').length;
+      const date = c.updated ? new Date(c.updated).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
+      return `<div class="archive-item${isActive?' active-chat':''}" onclick="loadArchiveChat('${c.id}')">
+        <span class="archive-item-icon">${isFav?'★':'◈'}</span>
+        <div class="archive-item-content">
+          <div class="archive-item-title">${escapeHtml(c.title||'Sans titre')}</div>
+          <div class="archive-item-meta">
+            <span>${msgCount} msg</span>
+            <span>${date}</span>
+          </div>
+        </div>
+        <button class="archive-fav-btn${isFav?' fav':''}" onclick="event.stopPropagation();toggleFav('${c.id}')" title="${isFav?'Retirer favoris':'Ajouter favoris'}">${isFav?'★':'☆'}</button>
+        <button class="archive-item-del" onclick="event.stopPropagation();deleteArchiveChat('${c.id}')" title="Supprimer">✕</button>
+      </div>`;
+    }).join('');
+  } catch(e) { list.innerHTML = '<div class="archive-empty">Erreur de chargement</div>'; }
+}
+
+window.loadArchiveChat = async id => {
+  await loadChat(id);
+  closeArchivesPanel();
+  await renderArchives();
+  toast("Conversation chargée", "success");
+};
+
+window.deleteArchiveChat = async id => {
+  if (!confirm("Supprimer cette conversation ?")) return;
+  await db.delete('chats', id);
+  if (state.chatId === id) await newChat();
+  await renderArchives();
+  toast("Conversation supprimée", "success");
+};
+
+window.toggleFav = async id => {
+  try {
+    const chat = await db.get('chats', id);
+    if (!chat) return;
+    chat.fav = !chat.fav;
+    await db.put('chats', chat);
+    await renderArchives();
+  } catch(e) {}
+};
+
+// ════════════════════════════════════════
+// SAVE / LOAD CHAT
+// ════════════════════════════════════════
+async function saveChat() {
+  if (!state.chatId) return;
+  try {
+    const existingChat = await db.get('chats', state.chatId).catch(() => null);
+    await db.put('chats', {
+      id: state.chatId,
+      model: state.model,
+      agentId: state.agent?.id,
+      messages: state.messages,
+      title: (state.messages||[]).slice(1).find(m=>m.role==='user')?.content?.slice(0,50) || "Nouvelle conversation",
+      updated: now(),
+      fav: existingChat?.fav || false
+    });
+    renderArchives();
+  } catch(e) { console.error("saveChat:", e); }
+}
+
+async function newChat() {
+  state.chatId = uuid();
+  state.messages = [{ role:"system", content:buildSystemPrompt(), ts:now() }];
+  await saveChat();
+  try { await db.put('settings', { id:'currentChatId', value:state.chatId }); } catch(e) {}
+  renderMessages();
+}
+
+async function loadChat(id) {
+  try {
+    const chat = await db.get('chats', id);
+    if (!chat) return;
+    state.chatId = id;
+    state.messages = chat.messages || [];
+    state.model = chat.model || state.model;
+    $("#model-select").value = state.model;
+    if (chat.agentId) {
+      try {
+        const ag = await db.get('agents', chat.agentId);
+        if (ag) { state.agent = ag; $("#agent-select").value = ag.id; }
+      } catch(e) {}
+    }
+    renderMessages();
+  } catch(e) { console.error("loadChat:", e); }
+}
+
+// ════════════════════════════════════════
+// SEND MESSAGE
+// ════════════════════════════════════════
+async function _sendMessageOriginal() {
+  const txt = $("#user-input").value.trim();
+  if (!txt) return;
+  if (!state.apiKey) {
+    toast("Configurez votre clé API d'abord", "error");
+    $("#api-modal").classList.add("active");
+    return;
+  }
+
+  state.messages.push({ role:"user", content:txt, ts:now() });
+  renderMessages();
+  $("#user-input").value = "";
+  autoResizeTextarea();
+  $("#send-btn").disabled = true;
+  $("#send-btn").innerHTML = '<span class="spin-ring"></span>';
+  showTyping();
+  await saveChat();
+
+  const relevantMems = memory.getRelevant(txt, 4);
+
+  try {
+    const contextMessages = [
+      { role:"system", content:buildSystemPrompt() },
+      ...(state.messages||[]).slice(-22).map(m => ({ role:m.role, content:m.content }))
+    ];
+    if (relevantMems.length) {
+      contextMessages.splice(1, 0, {
+        role:"user",
+        content:`[Contexte depuis la mémoire globale]\n${relevantMems.join('\n')}\n\nContinuez la conversation :`
+      });
+    }
+    // Use agent's preferred model if set
+    const activeModelId = (state.agent?.modelPref && state.agent.modelPref !== '') ? state.agent.modelPref : state.model;
+    const model = MODELS.find(m => m.id === activeModelId) || MODELS[0];
+    if (state.agent?.modelPref && state.agent.modelPref !== '') {
+      // temp switch model for this request
+    }
+    // Update context meter
+    updateContextMeter();
+    const agentTemp = state.agent?.temperature !== undefined ? state.agent.temperature : model.temp;
+    const agentMaxTok = state.agent?.maxTokens || 4096;
+    const res = await fetch("https://api.mistral.ai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${state.apiKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: activeModelId || state.model,
+        messages: contextMessages,
+        temperature: agentTemp,
+        max_tokens: agentMaxTok,
+        top_p: 0.95
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      let errMsg = err.slice(0, 300);
+      try { const j = JSON.parse(err); errMsg = j.message || j.error?.message || errMsg; } catch(e) {}
+      throw new Error(errMsg);
+    }
+
+    const data = await res.json();
+    const reply = data.choices?.[0]?.message?.content || "Aucune réponse";
+    hideTyping();
+    state.messages.push({ role:"assistant", content:reply, ts:now(), memoryUsed:relevantMems.length ? relevantMems : undefined });
+    renderMessages();
+    await saveChat();
+  } catch (e) {
+    hideTyping();
+    toast(`Erreur API : ${e.message}`, "error");
+    state.messages.push({ role:"assistant", content:`⚠ Requête échouée : ${e.message}`, ts:now() });
+    renderMessages();
+  } finally {
+    $("#send-btn").disabled = false;
+    $("#send-btn").innerHTML = "SEND ▶";
+  }
+}
+
+
+async function loadAgents() {
+  try {
+    const agents = await db.getAll('agents') || [];
+    const sel = $("#agent-select");
+    sel.innerHTML = '<option value="">▸ NO AGENT</option>';
+    agents.forEach(a => {
+      const opt = document.createElement("option");
+      opt.value = a.id;
+      opt.textContent = `◈ ${a.name}`;
+      opt.title = a.desc;
+      sel.appendChild(opt);
+    });
+    // Existing agents in modal
+    const list = $("#agent-existing-list");
+    if (list) {
+      if (!agents.length) {
+        list.innerHTML = '';
+        return;
+      }
+      list.innerHTML = `
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-dim);margin-bottom:10px">AGENTS EXISTANTS (${agents.length})</div>
+        ${agents.map(a => `
+          <div class="agent-preview" onclick="activateAgent('${a.id}')">
+            <div style="flex:1;min-width:0">
+              <div class="agent-preview-name">◈ ${escapeHtml(a.name)}</div>
+              <div class="agent-preview-desc">${escapeHtml((a.desc||'').slice(0,80))}${(a.desc||'').length>80?'…':''}</div>
+            </div>
+            <div class="agent-card-actions">
+              <button class="agent-action-btn" onclick="event.stopPropagation();openEditAgent('${a.id}')" title="Modifier">✎</button>
+              <button class="agent-action-btn" onclick="event.stopPropagation();duplicateAgentById('${a.id}')" title="Dupliquer">⎘</button>
+              <button class="agent-action-btn" onclick="event.stopPropagation();exportAgent('${a.id}')" title="Exporter">⬇</button>
+              <button class="agent-action-btn danger" onclick="event.stopPropagation();deleteAgent('${a.id}')" title="Supprimer">✕</button>
+            </div>
+          </div>
+        `).join('')}
+      `;
+    }
+  } catch(e) { console.error("loadAgents:", e); }
+}
+
+window.activateAgent = async id => {
+  try {
+    const ag = await db.get('agents', id);
+    if (ag) {
+      state.agent = ag;
+      $("#agent-select").value = id;
+      const sys = (state.messages||[]).find(m => m.role === "system");
+      if (sys) { sys.content = buildSystemPrompt(); await saveChat(); renderMessages(); }
+      toast(`Agent "${ag.name}" activé`, "success");
+      $("#agent-modal").classList.remove("active");
+    }
+  } catch(e) { console.error(e); }
+};
+
+window.deleteAgent = async id => {
+  if (!confirm("Supprimer cet agent ?")) return;
+  await db.delete('agents', id);
+  if (state.agent?.id === id) state.agent = null;
+  await loadAgents();
+  toast("Agent supprimé", "success");
+};
+
+// ════════════════════════════════════════
+// DATA EXPORT / IMPORT
+// ════════════════════════════════════════
+async function computeStats() {
+  try {
+    const chats = await db.getAll('chats') || [];
+    const agents = await db.getAll('agents') || [];
+    const mems = await db.getAll('global_memory') || [];
+    const json = JSON.stringify({ chats, agents, mems });
+    const sizeKb = (new Blob([json]).size / 1024).toFixed(1);
+    $("#stat-chats").textContent = chats.length;
+    $("#stat-agents").textContent = agents.length;
+    $("#stat-memories").textContent = mems.length;
+    $("#stat-size").textContent = sizeKb + " KB";
+  } catch(e) {}
+}
+
+async function exportData() {
+  try {
+    const chats = await db.getAll('chats') || [];
+    const agents = await db.getAll('agents') || [];
+    const mems = await db.getAll('global_memory') || [];
+    const settings = await db.getAll('settings') || [];
+    const payload = {
+      version: "2.0",
+      exported: new Date().toISOString(),
+      source: "VOANH",
+      data: { chats, agents, global_memory: mems, settings }
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `voanh-backup-${new Date().toISOString().slice(0,10)}.voanh.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast("Données exportées avec succès !", "success");
+  } catch(e) {
+    toast("Erreur export : " + e.message, "error");
+  }
+}
+
+async function importData(file) {
+  try {
+    const text = await file.text();
+    const payload = JSON.parse(text);
+    const data = payload.data || payload;
+    let count = 0;
+    if (data.chats?.length) {
+      for (const c of data.chats) { await db.put('chats', c); count++; }
+    }
+    if (data.agents?.length) {
+      for (const a of data.agents) { await db.put('agents', a); count++; }
+    }
+    if (data.global_memory?.length) {
+      for (const m of data.global_memory) { await db.put('global_memory', m); count++; }
+    }
+    await memory.getAll();
+    await loadAgents();
+    await computeStats();
+    toast(`Import réussi — ${count} éléments restaurés`, "success");
+  } catch(e) {
+    toast("Erreur import : " + e.message, "error");
+  }
+}
+
+
+// ════════════════════════════════════════
+// RATING SYSTEM
+// ════════════════════════════════════════
+window.rateMessage = async (ts, score) => {
+  const msg = (state.messages||[]).find(m => m.ts === ts);
+  if (!msg) return;
+  msg.rating = score;
+  await saveChat();
+  // Update stars UI
+  const msgEl = document.getElementById('mc-' + ts)?.closest('.message');
+  if (msgEl) {
+    msgEl.querySelectorAll('.rating-star').forEach((btn, i) => {
+      btn.classList.toggle('active', i < score);
+    });
+  }
+  toast(`Évaluation ${score}/5 enregistrée`, "success");
+  // Adjust temperature hint based on ratings
+  if (score <= 2) {
+    const bar = document.getElementById('context-bar');
+    if (bar) bar.classList.add('warn');
+  }
+};
+
+// ════════════════════════════════════════
+// FILE UPLOAD FOR VISION/AUDIO
+// ════════════════════════════════════════
+function initFileUpload() {
+  const btn = document.getElementById('file-upload-btn');
+  const inp = document.getElementById('file-input');
+  if (!btn || !inp) return;
+  btn.onclick = () => inp.click();
+  inp.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const model = MODELS.find(m => m.id === state.model);
+    const isVision = model?.vision || state.model.includes('pixtral');
+    const isAudio = model?.audio || state.model.includes('voxtral');
+    const isImage = file.type.startsWith('image/');
+    const isAudioFile = file.type.startsWith('audio/');
+    if (isImage) {
+      // Convert to base64
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        state.attachedFile = { type: 'image', data: ev.target.result, name: file.name, mimeType: file.type };
+        updateFilePreview();
+      };
+      reader.readAsDataURL(file);
+    } else if (isAudioFile) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        state.attachedFile = { type: 'audio', data: ev.target.result, name: file.name, mimeType: file.type };
+        updateFilePreview();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      toast("Format non supporté. Utilisez image/* ou audio/*", "error");
+    }
+    inp.value = '';
+  };
+}
+
+function updateFilePreview() {
+  const area = document.getElementById('input-area');
+  let preview = document.getElementById('file-preview-bar');
+  if (!state.attachedFile) {
+    if (preview) preview.remove();
+    return;
+  }
+  if (!preview) {
+    preview = document.createElement('div');
+    preview.id = 'file-preview-bar';
+    preview.className = 'file-preview';
+    area.parentNode.insertBefore(preview, area);
+  }
+  const icon = state.attachedFile.type === 'image' ? '🖼' : '🎵';
+  preview.innerHTML = `${icon} <strong style="color:var(--cyan)">${state.attachedFile.name}</strong><button class="file-preview-remove" onclick="clearAttachedFile()">✕ Retirer</button>`;
+}
+
+window.clearAttachedFile = () => {
+  state.attachedFile = null;
+  updateFilePreview();
+};
+
+// Override sendMessage to handle file attachments
+async function sendMessage() {
+  const txt = document.getElementById('user-input').value.trim();
+  if (!txt && !state.attachedFile) return;
+  if (!state.apiKey) {
+    toast("Configurez votre clé API d'abord", "error");
+    document.getElementById('api-modal').classList.add("active");
+    return;
+  }
+
+  const model = MODELS.find(m => m.id === state.model) || MODELS[0];
+  const isVision = state.model.includes('pixtral');
+  const isAudio = state.model.includes('voxtral');
+
+  if (state.attachedFile && (isVision || isAudio)) {
+    // Multi-modal message
+    const userMsg = {
+      role: "user",
+      content: txt || (state.attachedFile.type === 'image' ? "Décris cette image" : "Transcris cet audio"),
+      ts: now(),
+      imageData: state.attachedFile.type === 'image' ? state.attachedFile.data : null,
+      audioName: state.attachedFile.type === 'audio' ? state.attachedFile.name : null
+    };
+    state.messages.push(userMsg);
+    renderMessages();
+    document.getElementById('user-input').value = "";
+    autoResizeTextarea();
+    document.getElementById('send-btn').disabled = true;
+    document.getElementById('send-btn').innerHTML = '<span class="spin-ring"></span>';
+    showTyping();
+    await saveChat();
+    updateContextMeter();
+
+    // Build multimodal content
+    let msgContent = [];
+    if (state.attachedFile.type === 'image') {
+      msgContent.push({ type: "image_url", image_url: state.attachedFile.data });
+    }
+    if (txt) msgContent.push({ type: "text", text: txt });
+    else msgContent.push({ type: "text", text: "Analyse cette image en détail." });
+
+    const contextMessages = [
+      { role: "system", content: buildSystemPrompt() },
+      { role: "user", content: msgContent }
+    ];
+
+    try {
+      const agentTemp = state.agent?.temperature ?? model.temp;
+      const agentMaxTok = state.agent?.maxTokens || 4096;
+      const res = await fetch("https://api.mistral.ai/v1/chat/completions", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${state.apiKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ model: state.model, messages: contextMessages, temperature: agentTemp, max_tokens: agentMaxTok })
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content || "Aucune réponse";
+      hideTyping();
+      state.messages.push({ role: "assistant", content: reply, ts: now() });
+      renderMessages();
+      await saveChat();
+    } catch(err) {
+      hideTyping();
+      toast("Erreur API : " + err.message.slice(0,100), "error");
+    } finally {
+      document.getElementById('send-btn').disabled = false;
+      document.getElementById('send-btn').innerHTML = 'SEND ▶';
+    }
+    // Clear file
+    state.attachedFile = null;
+    updateFilePreview();
+    return;
+  }
+
+  if (state.attachedFile && !isVision && !isAudio) {
+    toast("Ce modèle ne supporte pas les fichiers. Utilisez Pixtral Vision ou Voxtral pour audio.", "error");
+    return;
+  }
+
+  // Normal text message - use original logic but with agent temperature
+  const _model = MODELS.find(m => m.id === state.model) || MODELS[0];
+  const origTemp = _model.temp;
+  if (state.agent?.temperature !== undefined) _model.temp = state.agent.temperature;
+  await _sendMessageOriginal();
+  _model.temp = origTemp;
+}
+
+// ════════════════════════════════════════
+// AGENT EDIT / DUPLICATE / EXPORT / IMPORT
+// ════════════════════════════════════════
+window.openEditAgent = async (id) => {
+  try {
+    const ag = await db.get('agents', id);
+    if (!ag) return;
+    document.getElementById('edit-agent-id').value = ag.id;
+    document.getElementById('edit-agent-name').value = ag.name || '';
+    document.getElementById('edit-agent-desc').value = ag.desc || '';
+    document.getElementById('edit-agent-instructions').value = ag.instructions || '';
+    document.getElementById('edit-agent-primer').value = ag.primer || '';
+    document.getElementById('edit-agent-tags').value = (ag.tags||[]).join(', ');
+    document.getElementById('edit-agent-temp').value = ag.temperature ?? 0.7;
+    document.getElementById('edit-agent-temp-val').textContent = ag.temperature ?? 0.7;
+    document.getElementById('edit-agent-maxtok').value = ag.maxTokens || 4096;
+    document.getElementById('edit-agent-maxtok-val').textContent = ag.maxTokens || 4096;
+    document.getElementById('edit-agent-style').value = ag.style || '';
+    document.getElementById('edit-agent-forbidden').value = ag.forbidden || '';
+    document.getElementById('edit-agent-mem-prio').value = ag.memPrio || 3;
+    document.getElementById('edit-agent-mem-prio-val').textContent = ag.memPrio || 3;
+    // Populate model select
+    const sel = document.getElementById('edit-agent-model-pref');
+    sel.innerHTML = '<option value="">Auto</option>';
+    MODELS.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.id; opt.textContent = m.name;
+      if (ag.modelPref === m.id) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    document.getElementById('edit-agent-modal').classList.add("active");
+  } catch(e) { console.error(e); toast("Erreur ouverture agent", "error"); }
+};
+
+window.duplicateAgentById = async (id) => {
+  try {
+    const ag = await db.get('agents', id);
+    if (!ag) return;
+    const copy = { ...ag, id: uuid(), name: ag.name + ' (copie)', created: now() };
+    await db.put('agents', copy);
+    await loadAgents();
+    toast(`Agent "${copy.name}" dupliqué`, "success");
+  } catch(e) { toast("Erreur duplication", "error"); }
+};
+
+window.exportAgent = async (id) => {
+  try {
+    const ag = await db.get('agents', id);
+    if (!ag) return;
+    const blob = new Blob([JSON.stringify(ag, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `agent-${ag.name.replace(/\s+/g,'-')}.json`;
+    a.click(); URL.revokeObjectURL(url);
+    toast(`Agent "${ag.name}" exporté`, "success");
+  } catch(e) { toast("Erreur export agent", "error"); }
+};
+
+function initAgentImport() {
+  const btn = document.getElementById('import-agent-btn');
+  const inp = document.getElementById('import-agent-input');
+  if (!btn || !inp) return;
+  btn.onclick = () => inp.click();
+  inp.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const ag = JSON.parse(text);
+      if (!ag.name || !ag.desc) throw new Error("Fichier agent invalide");
+      ag.id = uuid(); ag.created = now();
+      await db.put('agents', ag);
+      await loadAgents();
+      toast(`Agent "${ag.name}" importé`, "success");
+    } catch(err) { toast("Erreur import : " + err.message, "error"); }
+    inp.value = '';
+  };
+}
+
+// ════════════════════════════════════════
+// SETUP WIZARD
+// ════════════════════════════════════════
+async function checkFirstRun() {
+  try {
+    const cfg = await db.get('settings', 'aiConfig');
+    if (cfg?.value) {
+      state.aiConfig = cfg.value;
+      updateBrandName();
+      return false;
+    }
+    const key = getCookie("mistral_api_key");
+    if (!key) {
+      showWizard();
+      return true;
+    }
+    // Has key but no config — show step 2
+    state.apiKey = key;
+    showWizard(2);
+    return true;
+  } catch(e) { return false; }
+}
+
+function updateBrandName() {
+  const name = state.aiConfig?.name;
+  if (!name) return;
+  const brandEl = document.querySelector('.brand-name');
+  if (brandEl) brandEl.textContent = name;
+  // Update welcome message
+  const wvLogo = document.querySelector('.wv-logo');
+  if (wvLogo) wvLogo.textContent = name;
+}
+
+function showWizard(step = 1) {
+  document.getElementById('setup-wizard-overlay').classList.add("active");
+  setWizardStep(step);
+}
+
+function hideWizard() {
+  document.getElementById('setup-wizard-overlay').classList.remove("active");
+}
+
+function setWizardStep(n) {
+  document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+  const s = document.getElementById('wizard-step-' + n);
+  if (s) s.classList.add('active');
+}
+
+async function generateAgentsWithMistral(apiKey, aiName, aiGoal) {
+  const prompt = `Tu es un expert en IA et en architecture de systèmes multi-agents.
+
+L'utilisateur veut créer une IA personnelle nommée "${aiName}" avec l'objectif suivant :
+"${aiGoal}"
+
+Génère EXACTEMENT 20 agents spécialisés parfaitement adaptés à ce contexte.
+Chaque agent doit avoir une spécialité unique et complémentaire des autres.
+
+Réponds UNIQUEMENT avec un JSON valide, sans markdown, sans texte avant ou après :
+{
+  "agents": [
+    {
+      "name": "Nom court de l'agent",
+      "desc": "Description courte du rôle (max 100 chars)",
+      "instructions": "Instructions détaillées pour cet agent (200-400 mots)",
+      "tags": ["tag1", "tag2", "tag3"],
+      "style": "concis|detaille|formel|creatif|pedagogique",
+      "temperature": 0.7
+    }
+  ]
+}`;
+
+  const res = await fetch("https://api.mistral.ai/v1/chat/completions", {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "mistral-large-2512",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.8,
+      max_tokens: 8000
+    })
+  });
+
+  if (!res.ok) throw new Error("API Mistral : " + res.status);
+  const data = await res.json();
+  const text = data.choices?.[0]?.message?.content || "";
+  const clean = text.replace(/```json|```/g, '').trim();
+  const parsed = JSON.parse(clean);
+  if (!parsed.agents?.length) throw new Error("Réponse invalide");
+  return parsed.agents;
+}
+
+function initWizardEvents() {
+  // Step 1 → Step 2
+  document.getElementById('wizard-step1-next').onclick = () => {
+    const key = document.getElementById('wizard-api-key').value.trim();
+    if (!isValidApiKey(key)) { toast("Clé invalide — min. 20 caractères", "error"); return; }
+    setCookie("mistral_api_key", key);
+    state.apiKey = key;
+    document.getElementById('api-status').innerHTML = '<span class="status-dot"></span>ONLINE';
+    document.getElementById('api-status').className = "status-pill active";
+    setWizardStep(2);
+  };
+
+  // Step 2 back
+  document.getElementById('wizard-step2-back').onclick = () => setWizardStep(1);
+
+  // Step 2 → Step 3 (generate)
+  document.getElementById('wizard-step2-next').onclick = async () => {
+    const name = document.getElementById('wizard-ai-name').value.trim();
+    const goal = document.getElementById('wizard-ai-goal').value.trim();
+    if (!name || !goal) { toast("Nom et objectif obligatoires", "error"); return; }
+    state.aiConfig = { name, goal };
+    await db.put('settings', { id: 'aiConfig', value: state.aiConfig });
+    updateBrandName();
+    setWizardStep(3);
+    await runAgentGeneration(name, goal);
+  };
+
+  // Finish
+  document.getElementById('wizard-finish').onclick = async () => {
+    hideWizard();
+    toast(`Bienvenue sur ${state.aiConfig?.name || 'VOANH'} AI !`, "success");
+  };
+
+  // Retry
+  document.getElementById('wizard-retry').onclick = async () => {
+    const name = state.aiConfig?.name || document.getElementById('wizard-ai-name').value;
+    const goal = state.aiConfig?.goal || document.getElementById('wizard-ai-goal').value;
+    document.getElementById('wizard-gen-error').style.display = 'none';
+    document.getElementById('wizard-gen-loader').style.display = 'block';
+    await runAgentGeneration(name, goal);
+  };
+
+  // Skip generation
+  document.getElementById('wizard-skip-gen').onclick = () => {
+    hideWizard();
+    toast("Configuration terminée sans génération d'agents", "info");
+  };
+}
+
+async function runAgentGeneration(name, goal) {
+  const genDetail = document.getElementById('wizard-gen-detail');
+  const loader = document.getElementById('wizard-gen-loader');
+  const preview = document.getElementById('wizard-agents-preview');
+  const errDiv = document.getElementById('wizard-gen-error');
+  const grid = document.getElementById('wizard-agents-grid');
+
+  loader.style.display = 'block';
+  preview.style.display = 'none';
+  errDiv.style.display = 'none';
+
+  const steps = [
+    "Analyse de votre profil…",
+    "Identification des domaines clés…",
+    "Génération des spécialités…",
+    "Construction des instructions…",
+    "Finalisation des agents…"
+  ];
+  let si = 0;
+  const interval = setInterval(() => {
+    if (si < steps.length) { genDetail.textContent = steps[si++]; }
+  }, 1200);
+
+  try {
+    const agents = await generateAgentsWithMistral(state.apiKey, name, goal);
+    clearInterval(interval);
+
+    // Save agents
+    for (const agData of agents) {
+      const agent = { id: uuid(), ...agData, primer: "", created: now() };
+      await db.put('agents', agent);
+    }
+    await loadAgents();
+
+    // Show preview
+    loader.style.display = 'none';
+    grid.innerHTML = agents.map(a => `
+      <div class="agent-gen-card">
+        <div class="agent-gen-card-name">◈ ${escapeHtml(a.name)}</div>
+        <div class="agent-gen-card-desc">${escapeHtml((a.desc||'').slice(0,90))}</div>
+      </div>
+    `).join('');
+    document.getElementById('wizard-step3-title').textContent = `✓ ${agents.length} Agents Générés !`;
+    document.getElementById('wizard-step3-sub').textContent = `Vos agents spécialisés sont prêts. Vous pourrez les modifier à tout moment.`;
+    preview.style.display = 'block';
+  } catch(err) {
+    clearInterval(interval);
+    loader.style.display = 'none';
+    document.getElementById('wizard-error-msg').textContent = err.message;
+    errDiv.style.display = 'block';
+  }
+}
+
+// ════════════════════════════════════════
+// EDIT AGENT MODAL EVENTS
+// ════════════════════════════════════════
+function initEditAgentModal() {
+  const closeModal = () => document.getElementById('edit-agent-modal').classList.remove("active");
+  document.getElementById('close-edit-agent-modal').onclick = closeModal;
+  document.getElementById('close-edit-agent-modal-2').onclick = closeModal;
+  document.getElementById('edit-agent-modal').onclick = e => { if (e.target === document.getElementById('edit-agent-modal')) closeModal(); };
+
+  // Range inputs live update
+  ['temp','maxtok','mem-prio'].forEach(key => {
+    const inp = document.getElementById('edit-agent-' + key);
+    const val = document.getElementById('edit-agent-' + key + '-val');
+    if (inp && val) inp.oninput = () => { val.textContent = inp.value; };
+  });
+
+  // Advanced toggle
+  const toggle = document.getElementById('edit-adv-toggle');
+  const body = document.getElementById('edit-adv-body');
+  if (toggle && body) toggle.onclick = () => {
+    toggle.classList.toggle('open');
+    body.classList.toggle('open');
+  };
+
+  // Create agent advanced toggle
+  const createToggle = document.getElementById('create-adv-toggle');
+  const createBody = document.getElementById('create-adv-body');
+  if (createToggle && createBody) createToggle.onclick = () => {
+    createToggle.classList.toggle('open');
+    createBody.classList.toggle('open');
+  };
+  const createTemp = document.getElementById('create-agent-temp');
+  const createTempVal = document.getElementById('create-agent-temp-val');
+  if (createTemp && createTempVal) createTemp.oninput = () => { createTempVal.textContent = createTemp.value; };
+
+  // Save edit
+  document.getElementById('save-edit-agent').onclick = async () => {
+    const id = document.getElementById('edit-agent-id').value;
+    if (!id) return;
+    try {
+      const existing = await db.get('agents', id);
+      if (!existing) return;
+      const updated = {
+        ...existing,
+        name: document.getElementById('edit-agent-name').value.trim(),
+        desc: document.getElementById('edit-agent-desc').value.trim(),
+        instructions: document.getElementById('edit-agent-instructions').value.trim(),
+        primer: document.getElementById('edit-agent-primer').value.trim(),
+        tags: (document.getElementById('edit-agent-tags').value||'').split(',').map(t=>t.trim()).filter(Boolean),
+        modelPref: document.getElementById('edit-agent-model-pref').value,
+        temperature: parseFloat(document.getElementById('edit-agent-temp').value),
+        maxTokens: parseInt(document.getElementById('edit-agent-maxtok').value),
+        style: document.getElementById('edit-agent-style').value,
+        forbidden: document.getElementById('edit-agent-forbidden').value.trim(),
+        memPrio: parseInt(document.getElementById('edit-agent-mem-prio').value),
+        updated: now()
+      };
+      if (!updated.name || !updated.desc) { toast("Nom et rôle obligatoires", "error"); return; }
+      await db.put('agents', updated);
+      if (state.agent?.id === id) {
+        state.agent = updated;
+        const sys = (state.messages||[]).find(m => m.role === "system");
+        if (sys) { sys.content = buildSystemPrompt(); await saveChat(); renderMessages(); }
+      }
+      await loadAgents();
+      closeModal();
+      toast(`Agent "${updated.name}" mis à jour`, "success");
+    } catch(e) { toast("Erreur sauvegarde : " + e.message, "error"); }
+  };
+
+  // Duplicate from edit modal
+  document.getElementById('duplicate-agent-btn').onclick = async () => {
+    const id = document.getElementById('edit-agent-id').value;
+    if (id) { closeModal(); await duplicateAgentById(id); }
+  };
+}
+
+// ════════════════════════════════════════
+// GENERATE MORE AGENTS
+// ════════════════════════════════════════
+function initGenerateMoreAgents() {
+  const btn = document.getElementById('generate-more-agents-btn');
+  if (!btn) return;
+  btn.onclick = async () => {
+    if (!state.apiKey) { toast("Configurez votre clé API d'abord", "error"); return; }
+    if (!state.aiConfig) {
+      toast("Définissez d'abord votre profil via le wizard", "error"); return;
+    }
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin-ring"></span> Génération…';
+    try {
+      const agents = await generateAgentsWithMistral(state.apiKey, state.aiConfig.name, state.aiConfig.goal);
+      for (const agData of agents.slice(0, 10)) {
+        await db.put('agents', { id: uuid(), ...agData, primer: "", created: now() });
+      }
+      await loadAgents();
+      toast(`${Math.min(10, agents.length)} nouveaux agents générés !`, "success");
+    } catch(e) { toast("Erreur génération : " + e.message.slice(0,80), "error"); }
+    finally { btn.disabled = false; btn.innerHTML = '✦ GÉNÉRER + D\'AGENTS'; }
+  };
+}
+
+// ════════════════════════════════════════
+// TEXTAREA AUTO-RESIZE
+// ════════════════════════════════════════
+function autoResizeTextarea() {
+  const ta = $("#user-input");
+  ta.style.height = 'auto';
+  ta.style.height = Math.min(ta.scrollHeight, 160) + 'px';
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', async () => {
+  // DB
+  try { await db.open(); } catch(e) { console.error("DB init:", e); }
+
+  // Theme
+  try {
+    const t = await db.get('settings', 'theme');
+    if (t) {
+      document.documentElement.dataset.theme = t.value;
+      $("#theme-select").value = t.value;
+    }
+  } catch(e) {}
+
+  // Models
+  const modelSel = $("#model-select");
+  const agentModelPref = $("#agent-model-pref");
+  MODELS.forEach(m => {
+    const opt = document.createElement("option");
+    opt.value = m.id;
+    opt.textContent = m.name;
+    opt.title = `${m.desc} • ${m.tokens.toLocaleString()} max tokens${m.vision?' • 👁 Vision':''}${m.audio?' • 🎵 Audio':''}`;
+    modelSel.appendChild(opt);
+    if (agentModelPref) {
+      const opt2 = document.createElement("option");
+      opt2.value = m.id;
+      opt2.textContent = m.name;
+      agentModelPref.appendChild(opt2);
+    }
+  });
+  // Show/hide file upload btn based on model capability
+  const updateFileBtn = () => {
+    const m = MODELS.find(x => x.id === state.model);
+    const fileBtn = document.getElementById('file-upload-btn');
+    if (fileBtn) {
+      const canUpload = m?.vision || m?.audio;
+      fileBtn.style.opacity = canUpload ? '1' : '0.35';
+      fileBtn.title = canUpload ? `Joindre un fichier (${m.vision?'image':'audio'} supporté)` : 'Upload disponible avec Pixtral (images) ou Voxtral (audio)';
+    }
+  };
+  updateFileBtn();
+  document.getElementById('model-select').addEventListener('change', () => {
+    setTimeout(updateFileBtn, 50);
+  });
+  try {
+    const savedModel = await db.get('settings', 'model');
+    if (savedModel) { state.model = savedModel.value; modelSel.value = state.model; }
+    else modelSel.value = state.model;
+  } catch(e) {}
+
+  // API Key
+  const cookieKey = getCookie("mistral_api_key");
+  if (cookieKey && isValidApiKey(cookieKey)) {
+    state.apiKey = cookieKey;
+    $("#api-status").innerHTML = '<span class="status-dot"></span>ONLINE';
+    $("#api-status").className = "status-pill active";
+    $("#open-api-modal").textContent = "⬡ CLÉ API";
+  }
+
+  // Init new features
+  initFileUpload();
+  initEditAgentModal();
+  initAgentImport();
+  initWizardEvents();
+  initGenerateMoreAgents();
+
+  // Check first run / wizard
+  const isFirstRun = await checkFirstRun();
+
+  if (!isFirstRun) {
+    // Initialize default agents only if no agents exist and no wizard ran
+   // await initializeDefaultAgents();
+  }
+
+  // Memories & agents
+  await memory.getAll();
+  await loadAgents();
+  await renderArchives();
+
+  // Chat
+  try {
+    const savedChatId = await db.get('settings', 'currentChatId');
+    if (savedChatId?.value) await loadChat(savedChatId.value);
+    else await newChat();
+  } catch(e) { await newChat(); }
+
+  updateContextMeter();
+  bindEvents();
+});
+
+// ════════════════════════════════════════
+// EVENTS
+// ════════════════════════════════════════
+function bindEvents() {
+  // Archives panel
+  const archivesBtn = $("#archives-btn");
+  const archivesPanel = $("#archives-panel");
+  const openArchivesDesktop = $("#open-archives-desktop");
+  const archivesMob = $("#archives-mob");
+
+  const openArchivesPanel = () => {
+    archivesPanel.classList.add("active");
+    renderArchives();
+  };
+
+  const closeArchivesPanel = () => {
+    archivesPanel.classList.remove("active");
+  };
+
+  if (archivesBtn) {
+    archivesBtn.onclick = e => {
+      e.stopPropagation();
+      openArchivesPanel();
+    };
+  }
+
+  if (openArchivesDesktop) {
+    openArchivesDesktop.onclick = openArchivesPanel;
+  }
+
+  if (archivesMob) {
+    archivesMob.onclick = () => {
+      closeBurger();
+      openArchivesPanel();
+    };
+  }
+
+  document.addEventListener('click', e => {
+    if (archivesPanel.classList.contains("active") && !archivesPanel.contains(e.target) && e.target !== archivesBtn && e.target !== openArchivesDesktop) {
+      closeArchivesPanel();
+    }
+  });
+
+  if ($("#archives-new-btn")) {
+    $("#archives-new-btn").onclick = e => { e.stopPropagation(); newChat(); closeArchivesPanel(); };
+  }
+  if ($("#archives-search-input")) {
+    $("#archives-search-input").oninput = e => { archivesSearchQuery = e.target.value; renderArchives(); };
+    $("#archives-search-input").onclick = e => e.stopPropagation();
+  }
+
+  // Scroll to bottom
+  const scrollBottomBtn = $("#scroll-bottom");
+  const chatContainer = $("#chat-container");
+  if (scrollBottomBtn && chatContainer) {
+    chatContainer.addEventListener('scroll', () => {
+      const distFromBottom = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight;
+      scrollBottomBtn.classList.toggle("visible", distFromBottom > 150);
+    });
+    scrollBottomBtn.onclick = () => { chatContainer.scrollTop = chatContainer.scrollHeight; };
+  }
+
+  // Voice dictation
+  const voiceBtn = $("#voice-btn");
+  if (voiceBtn && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SR();
+    recognition.lang = 'fr-FR'; recognition.continuous = false; recognition.interimResults = false;
+    let isRecording = false;
+    voiceBtn.onclick = () => {
+      if (isRecording) { recognition.stop(); return; }
+      recognition.start();
+      isRecording = true;
+      voiceBtn.classList.add("recording");
+      voiceBtn.title = "Arrêter la dictée";
+    };
+    recognition.onresult = e => {
+      const transcript = Array.from(e.results).map(r=>r[0].transcript).join('');
+      const inp = $("#user-input");
+      inp.value += (inp.value ? ' ' : '') + transcript;
+      autoResizeTextarea();
+    };
+    recognition.onend = () => { isRecording = false; voiceBtn.classList.remove("recording"); voiceBtn.title = "Dictée vocale"; };
+    recognition.onerror = () => { isRecording = false; voiceBtn.classList.remove("recording"); toast("Dictée vocale indisponible", "error"); };
+  } else if (voiceBtn) {
+    voiceBtn.style.display = "none";
+  }
+
+  // Send
+  $("#send-btn").onclick = sendMessage;
+  $("#user-input").oninput = autoResizeTextarea;
+  $("#user-input").onkeydown = e => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  };
+
+  // Chat controls
+  $("#clear-chat").onclick = async () => {
+    state.messages = (state.messages||[]).filter(m => m.role === "system");
+    renderMessages();
+    await saveChat();
+    toast("Conversation effacée", "success");
+  };
+  $("#new-chat").onclick = newChat;
+
+  // Model
+  $("#model-select").onchange = e => {
+    state.model = e.target.value;
+    db.put('settings', { id:'model', value:state.model }).catch(()=>{});
+    const sys = (state.messages||[]).find(m => m.role === "system");
+    if (sys) { sys.content = buildSystemPrompt(); saveChat(); }
+  };
+
+  // Agent select
+  $("#agent-select").onchange = async e => {
+    try {
+      state.agent = e.target.value ? await db.get('agents', e.target.value) : null;
+      const sys = (state.messages||[]).find(m => m.role === "system");
+      if (sys) { sys.content = buildSystemPrompt(); await saveChat(); renderMessages(); }
+    } catch(err) { console.error(err); }
+  };
+
+  // Theme
+  $("#theme-select").onchange = e => {
+    document.documentElement.dataset.theme = e.target.value;
+    db.put('settings', { id:'theme', value:e.target.value }).catch(()=>{});
+  };
+
+  // API Modal
+  $("#open-api-modal").onclick = () => {
+    if (state.apiKey) {
+      // Pre-fill with current key (masked display via type=password)
+      $("#api-key-input").value = state.apiKey;
+    }
+    $("#api-modal").classList.add("active");
+  };
+  const closeApiModal = () => $("#api-modal").classList.remove("active");
+  $("#close-api-modal").onclick = closeApiModal;
+  if ($("#close-api-modal-2")) $("#close-api-modal-2").onclick = closeApiModal;
+  $("#api-modal").onclick = e => { if (e.target === $("#api-modal")) closeApiModal(); };
+
+  $("#save-api-key").onclick = () => {
+    const k = $("#api-key-input").value.trim();
+    if (!isValidApiKey(k)) {
+      toast("Clé invalide — min. 20 caractères alphanumériques", "error");
+      return;
+    }
+    setCookie("mistral_api_key", k);
+    state.apiKey = k;
+    $("#api-status").innerHTML = '<span class="status-dot"></span>ONLINE';
+    $("#api-status").className = "status-pill active";
+    if ($("#api-status-mob")) { $("#api-status-mob").innerHTML = '<span class="status-dot"></span>ONLINE'; $("#api-status-mob").className = "status-pill active"; }
+    closeApiModal();
+    toast("Clé API activée — persistante 365 jours !", "success");
+    // If no AI config, show wizard step 2
+    if (!state.aiConfig) setTimeout(() => showWizard(2), 500);
+  };
+
+  if ($("#delete-api-key")) {
+    $("#delete-api-key").onclick = () => {
+      if (!confirm("Supprimer votre clé API sauvegardée ?")) return;
+      deleteCookie("mistral_api_key");
+      state.apiKey = null;
+      $("#api-key-input").value = "";
+      $("#api-status").innerHTML = '<span class="status-dot"></span>OFFLINE';
+      $("#api-status").className = "status-pill";
+      toast("Clé API supprimée", "success");
+    };
+  }
+
+  // Agent Modal
+  const openAgentModal = async () => {
+    await loadAgents();
+    $("#agent-modal").classList.add("active");
+  };
+  const closeAgentModal = () => $("#agent-modal").classList.remove("active");
+  $("#open-agent-modal").onclick = openAgentModal;
+  $("#close-agent-modal").onclick = closeAgentModal;
+  if ($("#close-agent-modal-2")) $("#close-agent-modal-2").onclick = closeAgentModal;
+  $("#agent-modal").onclick = e => { if (e.target === $("#agent-modal")) closeAgentModal(); };
+
+  $("#save-agent").onclick = async () => {
+    const name = $("#agent-name").value.trim();
+    const desc = $("#agent-desc").value.trim();
+    if (!name || !desc) { toast("Nom et rôle obligatoires", "error"); return; }
+    const agent = {
+      id: uuid(),
+      name,
+      desc,
+      instructions: $("#agent-instructions").value.trim(),
+      primer: ($("#agent-primer") ? $("#agent-primer").value.trim() : ""),
+      tags: ($("#agent-tags").value||"").split(',').map(t=>t.trim()).filter(Boolean),
+      modelPref: ($("#agent-model-pref") ? $("#agent-model-pref").value : ""),
+      temperature: parseFloat(($("#create-agent-temp") ? $("#create-agent-temp").value : "0.7")) || 0.7,
+      style: ($("#create-agent-style") ? $("#create-agent-style").value : ""),
+      forbidden: ($("#create-agent-forbidden") ? $("#create-agent-forbidden").value.trim() : ""),
+      memPrio: 3,
+      maxTokens: 4096,
+      created: now()
+    };
+    await db.put('agents', agent);
+    closeAgentModal();
+    await loadAgents();
+    $("#agent-select").value = agent.id;
+    state.agent = agent;
+    const sys = (state.messages||[]).find(m => m.role === "system");
+    if (sys) { sys.content = buildSystemPrompt(); await saveChat(); renderMessages(); }
+    toast(`Agent "${name}" créé et activé !`, "success");
+    ["agent-name","agent-desc","agent-instructions","agent-tags"].forEach(id => {
+      const el = $(`#${id}`);
+      if (el) el.value = "";
+    });
+    if ($("#agent-primer")) $("#agent-primer").value = "";
+  };
+
+  // Memory
+  $("#memory-toggle").onclick = () => $("#memory-panel").classList.toggle("active");
+  $("#memory-add").onclick = async () => {
+    const txt = $("#memory-input").value.trim();
+    if (!txt) return;
+    await memory.add(txt);
+    $("#memory-input").value = "";
+    toast("Mémoire ajoutée", "success");
+    const sys = (state.messages||[]).find(m => m.role === "system");
+    if (sys) { sys.content = buildSystemPrompt(); await saveChat(); }
+  };
+  $("#memory-input").onkeydown = e => { if (e.key === "Enter") { e.preventDefault(); $("#memory-add").click(); } };
+  $("#memory-clear").onclick = async () => {
+    if (confirm("Effacer toute la mémoire globale ?")) await memory.clear();
+  };
+
+  // Data Modal
+  const openDataModal = async () => {
+    await computeStats();
+    $("#data-modal").classList.add("active");
+  };
+  const closeDataModal = () => $("#data-modal").classList.remove("active");
+  if ($("#open-data-modal")) $("#open-data-modal").onclick = openDataModal;
+  if ($("#close-data-modal")) $("#close-data-modal").onclick = closeDataModal;
+  if ($("#close-data-modal-2")) $("#close-data-modal-2").onclick = closeDataModal;
+  if ($("#data-modal")) $("#data-modal").onclick = e => { if (e.target === $("#data-modal")) closeDataModal(); };
+
+  if ($("#btn-export")) $("#btn-export").onclick = exportData;
+
+  if ($("#btn-clear-all")) $("#btn-clear-all").onclick = async () => {
+    if (!confirm("⚠ Supprimer TOUTES les données locales VOANH ? Cette action est irréversible.")) return;
+    const stores = ['chats','agents','settings','global_memory'];
+    for (const s of stores) {
+      const all = await db.getAll(s) || [];
+      for (const r of all) await db.delete(s, r.id);
+    }
+    state.messages = [];
+    state.agent = null;
+    state.globalMemories = [];
+    await newChat();
+    await loadAgents();
+    renderMemoryList();
+    closeDataModal();
+    toast("Toutes les données supprimées", "success");
+  };
+
+  // Import zone — étape 1 : sélection + aperçu
+  let pendingImportFile = null;
+
+  const dropZone = $("#import-drop-zone");
+  const fileInput = $("#import-file-input");
+  const importPreview = $("#import-preview");
+
+  const showImportPreview = async (file) => {
+    pendingImportFile = file;
+    $("#import-filename").textContent = file.name;
+    $("#import-fileinfo").textContent = `${(file.size / 1024).toFixed(1)} KB — ${new Date(file.lastModified).toLocaleDateString('fr-FR')}`;
+    $("#import-summary").textContent = "Analyse en cours…";
+    importPreview.style.display = "block";
+    dropZone.style.opacity = "0.4";
+
+    try {
+      const text = await file.text();
+      const payload = JSON.parse(text);
+      const data = payload.data || payload;
+      const nbChats = data.chats?.length || 0;
+      const nbAgents = data.agents?.length || 0;
+      const nbMems = data.global_memory?.length || 0;
+      const exported = payload.exported ? `Sauvegarde du ${new Date(payload.exported).toLocaleString('fr-FR')}` : "Date inconnue";
+      $("#import-summary").innerHTML = `
+        <strong style="color:var(--neon)">✓ Fichier valide</strong><br>
+        ${exported}<br>
+        ▸ ${nbChats} conversation(s) &nbsp;|&nbsp; ${nbAgents} agent(s) &nbsp;|&nbsp; ${nbMems} souvenir(s)
+      `;
+    } catch(e) {
+      $("#import-summary").innerHTML = `<span style="color:var(--danger)">⚠ Fichier invalide ou corrompu : ${e.message}</span>`;
+      pendingImportFile = null;
+    }
+  };
+
+  const resetImportUI = () => {
+    pendingImportFile = null;
+    importPreview.style.display = "none";
+    dropZone.style.opacity = "1";
+    if (fileInput) fileInput.value = "";
+  };
+
+  if (dropZone && fileInput) {
+    dropZone.onclick = () => fileInput.click();
+    dropZone.ondragover = e => { e.preventDefault(); dropZone.classList.add("dragover"); };
+    dropZone.ondragleave = () => dropZone.classList.remove("dragover");
+    dropZone.ondrop = e => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      const file = e.dataTransfer.files[0];
+      if (file) showImportPreview(file);
+    };
+    fileInput.onchange = e => {
+      const file = e.target.files[0];
+      if (file) showImportPreview(file);
+    };
+  }
+
+  // Import étape 2 : confirmer
+  if ($("#btn-import-confirm")) {
+    $("#btn-import-confirm").onclick = async () => {
+      if (!pendingImportFile) return;
+      const btn = $("#btn-import-confirm");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spin-ring"></span> RESTAURATION…';
+      try {
+        await importData(pendingImportFile);
+        resetImportUI();
+        await computeStats();
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '✓ VALIDER ET RESTAURER';
+      }
+    };
+  }
+  if ($("#btn-import-cancel")) {
+    $("#btn-import-cancel").onclick = resetImportUI;
+  }
+
+  // ══ BURGER MENU MOBILE ══
+  const burgerBtn = $("#burger-btn");
+  const mobileMenu = $("#mobile-menu");
+
+  const closeBurger = () => mobileMenu.classList.remove("open");
+
+  if (burgerBtn && mobileMenu) {
+    burgerBtn.onclick = (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle("open");
+    };
+
+    // Sync mobile selects with desktop selects
+    const syncMobile = () => {
+      const mMod = $("#model-select-mob");
+      const mAgent = $("#agent-select-mob");
+      const mTheme = $("#theme-select-mob");
+      if (mMod) { mMod.innerHTML = $("#model-select").innerHTML; mMod.value = state.model; }
+      if (mAgent) { mAgent.innerHTML = $("#agent-select").innerHTML; mAgent.value = state.agent?.id || ""; }
+      if (mTheme) mTheme.value = document.documentElement.dataset.theme;
+    };
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+    document.addEventListener('click', () => closeBurger());
+
+    // Mobile model select
+    const mModSel = $("#model-select-mob");
+    if (mModSel) {
+      // Populate
+      MODELS.forEach(m => {
+        const opt = document.createElement("option");
+        opt.value = m.id;
+        opt.textContent = m.name;
+        mModSel.appendChild(opt);
+      });
+      mModSel.value = state.model;
+      mModSel.onchange = e => {
+        state.model = e.target.value;
+        $("#model-select").value = state.model;
+        db.put('settings', { id:'model', value:state.model }).catch(()=>{});
+        const sys = (state.messages||[]).find(m => m.role === "system");
+        if (sys) { sys.content = buildSystemPrompt(); saveChat(); }
+      };
+    }
+
+    // Mobile agent select
+    const mAgentSel = $("#agent-select-mob");
+    if (mAgentSel) {
+      mAgentSel.onchange = async e => {
+        try {
+          state.agent = e.target.value ? await db.get('agents', e.target.value) : null;
+          $("#agent-select").value = e.target.value;
+          const sys = (state.messages||[]).find(m => m.role === "system");
+          if (sys) { sys.content = buildSystemPrompt(); await saveChat(); renderMessages(); }
+        } catch(err) { console.error(err); }
+      };
+    }
+
+    // Mobile theme select
+    const mThemeSel = $("#theme-select-mob");
+    if (mThemeSel) {
+      mThemeSel.onchange = e => {
+        document.documentElement.dataset.theme = e.target.value;
+        $("#theme-select").value = e.target.value;
+        db.put('settings', { id:'theme', value:e.target.value }).catch(()=>{});
+      };
+    }
+
+    // Mobile API modal
+    if ($("#open-api-modal-mob")) $("#open-api-modal-mob").onclick = () => { closeBurger(); $("#api-modal").classList.add("active"); };
+    // Mobile Agent modal
+    if ($("#open-agent-modal-mob")) $("#open-agent-modal-mob").onclick = async () => { closeBurger(); await loadAgents(); $("#agent-modal").classList.add("active"); };
+    // Mobile Data modal
+    if ($("#open-data-modal-mob")) $("#open-data-modal-mob").onclick = async () => { closeBurger(); await computeStats(); $("#data-modal").classList.add("active"); };
+    // Mobile clear / new
+    if ($("#clear-chat-mob")) $("#clear-chat-mob").onclick = () => { closeBurger(); $("#clear-chat").click(); };
+    if ($("#new-chat-mob")) $("#new-chat-mob").onclick = () => { closeBurger(); newChat(); };
+
+    // Sync mobile status pill
+    const syncStatusMob = () => {
+      const mob = $("#api-status-mob");
+      if (!mob) return;
+      mob.innerHTML = $("#api-status").innerHTML;
+      mob.className = $("#api-status").className;
+    };
+
+    // Override the api status update to also sync mobile
+    const origSaveKey = document.getElementById("save-api-key");
+    if (origSaveKey) {
+      const origClick = origSaveKey.onclick;
+      origSaveKey.onclick = (...args) => {
+        if (origClick) origClick.apply(this, args);
+        setTimeout(syncStatusMob, 100);
+      };
+    }
+
+    // Sync on open
+    burgerBtn.addEventListener('click', syncStatusMob);
+  }
+
+  // Close memory panel on outside click
+  document.addEventListener('click', e => {
+    const panel = $("#memory-panel");
+    const toggle = $("#memory-toggle");
+    if (panel.classList.contains("active") && !panel.contains(e.target) && e.target !== toggle) {
+      panel.classList.remove("active");
+    }
+  });
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
