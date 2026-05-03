@@ -750,3 +750,104 @@ Modifiez les variables CSS dans `:root` :
 **VOANH AI** — *Votre Intelligence Artificielle Personnelle, Évoluée, Locale et Gratuite.*
 
 🚀 **Commencez maintenant** : Ouvrez `index.html`, configurez votre clé API Mistral, et laissez l'IA travailler pour vous !
+
+---
+
+## Roadmap DUNIA AI
+
+### 1. Vision du projet
+
+**DUNIA AI** est un assistant IA personnel, entièrement local, gratuit et sans serveur. Il repose sur un seul fichier `index.html` intégrant l'API Mistral AI, un système de mémoire persistante (IndexedDB), des agents spécialisés générés automatiquement, et une interface sobre et accessible.
+
+L'objectif à terme est de fournir un outil personnel complet pour organiser ses idées, automatiser des tâches répétitives, analyser des documents, et maintenir un contexte de travail entre les sessions — sans dépendance externe, sans abonnement obligatoire, sans fuite de données.
+
+---
+
+### 2. Agents de base à créer
+
+Ces cinq agents constituent le kit de démarrage recommandé pour couvrir les usages les plus courants :
+
+| Agent | Rôle | Modèle conseillé |
+|-------|------|-----------------|
+| **Rédacteur Pro** | Rédaction de contenus clairs, reformulation, résumés | Mistral Zenith |
+| **Analyste de données** | Lecture de CSV/JSON, interprétation de chiffres, synthèses | Mistral Omega |
+| **Développeur assistant** | Code, débogage, revue de code, explication technique | Codestral / Devstral |
+| **Chef de projet** | Structuration de tâches, priorisation, plans d'action | Mistral Zenith |
+| **Assistant recherche** | Veille, synthèse de sources, extraction d'informations | Mistral Omega |
+
+Pour créer ces agents : ouvrir la modale **⚙ Agents** → remplir le formulaire ou utiliser **✦ Générer + d'agents**.
+
+---
+
+### 3. Roadmap en 7 étapes
+
+| Étape | Objectif | Critère de succès |
+|-------|----------|-------------------|
+| **1 — Socle fonctionnel** | Application stable, sans bug bloquant, labels en français | Tous les tests manuels passent sans erreur console |
+| **2 — Kit agents de base** | Créer et valider les 5 agents de démarrage | Chaque agent répond de façon cohérente avec son rôle |
+| **3 — Mémoire enrichie** | Utiliser la mémoire globale pour maintenir un contexte de projet | L'IA cite correctement des faits mémorisés entre sessions |
+| **4 — Gestion de fichiers** | Attacher, analyser et résumer des fichiers (PDF, texte, image) | Un résumé pertinent est produit à partir d'un fichier joint |
+| **5 — Export / Archivage** | Exporter conversations et agents, restaurer sur une autre machine | Le backup `.voanh.json` se réimporte sans perte de données |
+| **6 — Personnalisation avancée** | Thèmes, prompts système adaptés à l'utilisateur | L'interface est personnalisée et les agents reflètent l'usage réel |
+| **7 — Stabilisation & documentation** | README à jour, zéro erreur console, UX fluide | Revue complète de l'interface sur desktop et mobile |
+
+---
+
+### 4. Risques techniques
+
+| Risque | Probabilité | Impact | Mitigation |
+|--------|-------------|--------|------------|
+| Quota Free Tier Mistral dépassé | Moyenne | Élevé | Surveiller `console.mistral.ai` ; basculer sur Mistral Small pour les tâches légères |
+| Clé API exposée en hébergement public | Élevée si mal configuré | Critique | Usage local uniquement, ou proxy backend obligatoire en multi-utilisateur |
+| Perte de données IndexedDB | Faible | Élevé | Export régulier via Archives → ⬇ Exporter |
+| Régression après modification du code | Moyenne | Moyen | Tester les 5 fonctions clés après chaque modification (`sendMessage`, `loadChat`, `saveChat`, `renderMessages`, `loadAgents`) |
+| Incompatibilité navigateur | Faible | Moyen | Tester sur Chrome et Firefox ; IndexedDB et `fetch` sont supportés universellement depuis 2020 |
+| Injection XSS via contenu dynamique | Faible (mitigé) | Élevé | La fonction `escapeHtml()` est appliquée sur tous les contenus utilisateur affichés via `innerHTML` |
+
+---
+
+### 5. Prochaines actions
+
+Actions concrètes à réaliser dans l'ordre de priorité :
+
+1. **Créer les 5 agents de base** via la modale ⚙ Agents et les tester sur des cas réels
+2. **Alimenter la mémoire globale** avec les informations clés de vos projets en cours
+3. **Faire un premier export de sauvegarde** (Archives → ⬇ Exporter) et le stocker en lieu sûr
+4. **Tester le chargement d'un fichier** (image ou PDF) et valider la réponse de l'IA
+5. **Vérifier le rendu mobile** : ouvrir `index.html` sur un smartphone ou réduire la fenêtre à 375 px
+6. **Personnaliser le nom et l'objectif de l'IA** via le wizard si ce n'est pas encore fait
+
+---
+
+### 6. Checklist de validation
+
+Avant de considérer l'application comme prête pour un usage quotidien, valider chaque point :
+
+#### Fonctionnement de base
+- [ ] La clé API Mistral est saisie et le statut **En ligne** s'affiche
+- [ ] Un message est envoyé et une réponse est reçue sans erreur console
+- [ ] Le bouton Envoyer est désactivé pendant la génération (pas de doublon)
+
+#### Agents
+- [ ] Au moins un agent est créé et activé
+- [ ] Le switch d'agent en cours de conversation fonctionne sans perte d'historique
+- [ ] Un agent peut être exporté et réimporté
+
+#### Archives
+- [ ] Une conversation est sauvegardée automatiquement après le premier message
+- [ ] Charger une archive depuis le panneau ferme bien le panneau
+- [ ] Supprimer une conversation l'efface de la liste
+
+#### Mémoire
+- [ ] Un fait peut être ajouté manuellement à la mémoire globale
+- [ ] L'IA cite un fait mémorisé dans une nouvelle conversation
+- [ ] Une entrée de mémoire peut être supprimée
+
+#### Export / Import
+- [ ] L'export produit un fichier `.voanh.json` valide
+- [ ] L'import restaure conversations, agents et mémoires
+
+#### Interface
+- [ ] L'interface s'affiche correctement sur mobile (< 480 px)
+- [ ] Aucune erreur critique dans la console navigateur (`F12 → Console`)
+- [ ] Les trois thèmes (Cyberpunk, Minuit, Clair) sont fonctionnels
